@@ -13,18 +13,19 @@ public class Cookbook_Controller extends Cookbook
 		return -1;
 	}
 	
-
-	
 	//Returns true if the remove succeeded, or false otherwise.
 	public boolean removeIngredient(String ing)
 	{
 		//TODO
 		//Get ingredients from the database,
+		//Ingredient ingredient = getfromdatabase(int)
 		//Remove any that match ing for name.
 		//If there aren't any, return false
 		//Else if there are, continue to iterate
-		//Through each recipe (get ALL recipes from database)
-		ArrayList<Recipe> allRecipes = (ArrayList<Recipe>) getAllRecipes();
+		//Iterate through each recipe that the ingredient has
+		//List<Recipe> allRecipes = ingredient.getRecipes();
+		//Each ingredient knows which recipes it exists in.
+		
 		//Then delete any ingredients with a name of ing from each ingredient
 		//For(Recipe r : allRecipes)
 		//for(Ingredient i : r)
@@ -51,9 +52,4 @@ public class Cookbook_Controller extends Cookbook
 		return false;
 	}
 	
-	//Returns all recipes from the database.
-	private List<Recipe> getAllRecipes()
-	{
-		return null;
-	}
 }
