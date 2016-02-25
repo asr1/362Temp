@@ -19,12 +19,6 @@ public class Cookbook implements Cookbook_I
 		return false;
 	}
 
-	@Override
-	public int addRecipe(String name)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public boolean discardRecipe()
@@ -73,6 +67,13 @@ public class Cookbook implements Cookbook_I
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int addRecipe(Recipe recipe)
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

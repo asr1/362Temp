@@ -15,6 +15,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
+	@Override
 	public int addRecipe(Recipe rec)
 	{
 		//TODO
@@ -24,6 +25,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	}
 	
 	//Returns true if the remove succeeded, or false otherwise.
+	@Override
 	public boolean removeIngredient(String ing)
 	{
 		//TODO
@@ -55,6 +57,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	
 	//Takes the ID of the recipe to be removed.
 	//Returns true if the remove succeeded, or false otherwise.
+	@Override
 	public boolean removeRecipe(int id)
 	{
 		//TODO
@@ -74,11 +77,6 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return false;
 	}
 
-	@Override
-	public int addRecipe(String name) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public boolean discardRecipe() {

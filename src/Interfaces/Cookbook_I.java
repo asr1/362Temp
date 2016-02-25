@@ -1,9 +1,11 @@
 package Interfaces;
 
+import cs362Cookbook.Recipe;
+
 public interface Cookbook_I {
 	
 	public boolean addIngredient(String name);
-	public int addRecipe(String name);
+	public int addRecipe(Recipe recipe);
 	public boolean discardRecipe();
 	public int duplicateRecipe(int ID);
 	public boolean editRecipe(int ID);
