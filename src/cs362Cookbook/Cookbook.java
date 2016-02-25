@@ -1,9 +1,16 @@
 package cs362Cookbook;
 
-import Interfaces.Cookbook_Controller_I;
+import Interfaces.Cookbook_I;
+import Interfaces.Database_Support_I;
 
-public class Cookbook implements Cookbook_Controller_I
+public class Cookbook implements Cookbook_I
 {
+	
+	private Database_Support_I db;
+	
+	public Cookbook() {
+		db = null;
+	}
 
 	@Override
 	public boolean addIngredient(String name)
