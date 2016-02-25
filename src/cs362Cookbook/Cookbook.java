@@ -2,6 +2,7 @@ package cs362Cookbook;
 
 import Interfaces.Cookbook_I;
 import Interfaces.Database_Support_I;
+import Interfaces.Ingredient_I;
 
 public class Cookbook implements Cookbook_I
 {
@@ -12,11 +13,20 @@ public class Cookbook implements Cookbook_I
 		db = null;
 	}
 
+	/**
+	 * Takes a name and adds that ingredient to the cookbook. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
+	 */
 	@Override
-	public boolean addIngredient(String name)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addIngredient(String name) {
+		
+		Ingredient_I I = new Ingredient(name);
+		
+		return db.putIngredient(I);
+		
 	}
 
 	@Override

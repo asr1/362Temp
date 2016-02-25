@@ -67,10 +67,13 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return false;
 	}
 
+	/**
+	 * Takes a name and adds that ingredient to the cookbook. 
+	 * returns a boolean whether it was successful or not.
+	 */
 	@Override
 	public boolean addIngredient(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		return cookbook.addIngredient(name);
 	}
 
 	@Override
