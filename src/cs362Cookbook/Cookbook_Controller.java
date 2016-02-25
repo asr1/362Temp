@@ -69,7 +69,10 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 
 	/**
 	 * Takes a name and adds that ingredient to the cookbook. 
-	 * returns a boolean whether it was successful or not.
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
 	 */
 	@Override
 	public boolean addIngredient(String name) {
@@ -88,10 +91,16 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return false;
 	}
 
+	/**
+	 * Takes a ID number for a recipe and makes a duplicate of that recipe. 
+	 * Returns the ID of the newly created recipe.
+	 * 
+	 * @param ID
+	 * @return int
+	 */
 	@Override
 	public int duplicateRecipe(int ID) {
-		// TODO Auto-generated method stub
-		return 0;
+		return cookbook.duplicateRecipe(ID);
 	}
 
 	@Override

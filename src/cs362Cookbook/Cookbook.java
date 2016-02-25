@@ -1,8 +1,6 @@
 package cs362Cookbook;
 
-import Interfaces.Cookbook_I;
-import Interfaces.Database_Support_I;
-import Interfaces.Ingredient_I;
+import Interfaces.*;
 
 public class Cookbook implements Cookbook_I
 {
@@ -43,11 +41,28 @@ public class Cookbook implements Cookbook_I
 		return false;
 	}
 
+	/**
+	 * Takes a ID number for a recipe and makes a duplicate of that recipe. 
+	 * Returns the ID of the newly created recipe.
+	 * 
+	 * @param ID
+	 * @return int
+	 */
 	@Override
-	public int duplicateRecipe(int ID)
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	public int duplicateRecipe(int ID) {
+		
+		Recipe_I R1 = db.getRecipe(ID);
+		
+		if(R1 == null) {
+			
+			return -1;
+			
+		}
+		
+		Recipe_I R2 = R1.copyRecipe();
+		
+		return db.putRecipe(R2);
+		
 	}
 
 	@Override

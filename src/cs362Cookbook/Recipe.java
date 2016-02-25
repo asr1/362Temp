@@ -10,7 +10,7 @@ public class Recipe implements Recipe_I
 	int id;
 	boolean isFavorite;
 	String author;
-	List<Ingredient> ingredients = new ArrayList<Ingredient>();
+	List<Ingredient_I> ingredients = new ArrayList<Ingredient_I>();
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
@@ -27,12 +27,44 @@ public class Recipe implements Recipe_I
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	/**
+	 * Returns a proper copy of this recipe
+	 * @return Recipe_I
+	 */
 	@Override
-	public Recipe_I copyRecipe()
-	{
-		// TODO Auto-generated method stub
-		return null;
+	public Recipe_I copyRecipe() {
+		
+		Recipe R;
+		
+		try {
+			
+			R = (Recipe) this.clone();
+			
+		} catch (CloneNotSupportedException e) {
+			
+			R = new Recipe();
+			
+		}
+		
+		// lets not trust .clone()
+		R.isFavorite = this.isFavorite;
+		R.author = this.author;
+		R.name = this.name;
+		
+		// lists
+		R.ingredients = new ArrayList<Ingredient_I>();
+		
+		for(Ingredient_I I : this.ingredients) {
+			
+			R.ingredients.add(I);
+			
+		}
+		
+		return R;
+		
 	}
+	
 	@Override
 	public boolean addIngredient(Ingredient_I I)
 	{
