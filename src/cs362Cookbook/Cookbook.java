@@ -1,5 +1,7 @@
 package cs362Cookbook;
 
+import java.util.List;
+
 import Interfaces.*;
 
 public class Cookbook implements Cookbook_I
@@ -27,12 +29,6 @@ public class Cookbook implements Cookbook_I
 		
 	}
 
-	@Override
-	public int addRecipe(String name)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public boolean discardRecipe()
@@ -86,11 +82,40 @@ public class Cookbook implements Cookbook_I
 		return false;
 	}
 
+	/**
+	 * Takes a old name and a new name then replaces the old ingredient with the new ingredient. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param old name, new name
+	 * @return boolean
+	 */
 	@Override
-	public boolean replaceIngredient(String oName, String nName)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean replaceIngredient(String oName, String nName) {
+		
+		Ingredient_I I1 = db.getIngredient(oName);
+		
+		Ingredient_I I2 = db.getIngredient(nName);
+		
+		if(I1 == null || I2 == null) {
+			
+			return false;
+			
+		}
+		
+		List<Recipe_I> L = I1.getRecipes();
+		
+		for(Recipe_I R : L) {
+			
+			R.removeIngredient(I1);
+			
+			R.addIngredient(I2);
+			
+			I2.addRecipe(R);
+			
+		}
+		
+		return db.putIngredient(I2) && db.deleteIngredient(I1.getName());
+		
 	}
 
 	@Override
@@ -98,6 +123,13 @@ public class Cookbook implements Cookbook_I
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public int addRecipe(Recipe recipe)
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
