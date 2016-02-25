@@ -1,9 +1,9 @@
 package cs362Cookbook;
 
-import java.util.ArrayList;
-import java.util.List;
+import Interfaces.Cookbook_Controller_I;
 
-public class Cookbook_Controller extends Cookbook
+
+public class Cookbook_Controller extends Cookbook implements Cookbook_Controller_I
 {
 	
 	//Returns the ID of the created recipe, or -1 if
