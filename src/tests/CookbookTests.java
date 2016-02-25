@@ -11,7 +11,7 @@ public class CookbookTests
 {
 
 	@Test
-	public void addTest()
+	public void addRecipeTest()
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
 		Recipe recipe = new Recipe();
@@ -20,7 +20,7 @@ public class CookbookTests
 	}
 
 	@Test
-	public void removeTest()
+	public void removeRecipeTest()
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
 		Recipe recipe = new Recipe();
