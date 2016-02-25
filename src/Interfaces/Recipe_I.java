@@ -11,4 +11,7 @@ public interface Recipe_I {
 	public boolean removeIngredient(Ingredient_I I);
 	public List<Ingredient_I> getIngredients();
 	
+	//Needed to confirm copy succeeds
+	@Override
+	public boolean equals(Object aThat);
 }
