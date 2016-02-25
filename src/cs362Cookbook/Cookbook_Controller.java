@@ -1,7 +1,10 @@
 package cs362Cookbook;
 
+import java.util.List;
+
 import Interfaces.Cookbook_Controller_I;
 import Interfaces.Cookbook_I;
+import Interfaces.Ingredient_I;
 
 
 public class Cookbook_Controller implements Cookbook_Controller_I
@@ -16,7 +19,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
 	@Override
-	public int addRecipe(Recipe rec)
+	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
 	{
 		//TODO
 		//Will pass each parameter of the recipe to the database with SQL.
@@ -107,5 +110,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 	
 }

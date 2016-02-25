@@ -14,6 +14,24 @@ public class Recipe implements Recipe_I
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
+	String instruciton;
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public String getAuthor()
+	{
+		return author;
+	}
+	
+	public String getInstruction()
+	{
+		return instruciton;
+	}
+	
+	
 	
 	@Override
 	public boolean editRecipe(int ID)

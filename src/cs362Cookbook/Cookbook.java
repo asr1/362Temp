@@ -1,7 +1,10 @@
 package cs362Cookbook;
 
+import java.util.List;
+
 import Interfaces.Cookbook_I;
 import Interfaces.Database_Support_I;
+import Interfaces.Ingredient_I;
 
 public class Cookbook implements Cookbook_I
 {
@@ -70,7 +73,7 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public int addRecipe(Recipe recipe)
+	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
 	{
 		// TODO Auto-generated method stub
 		return 0;

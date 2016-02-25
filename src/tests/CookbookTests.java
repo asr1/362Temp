@@ -1,6 +1,10 @@
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
 
@@ -16,7 +20,7 @@ public class CookbookTests
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
 		Recipe recipe = new Recipe();
-		int id = cont.addRecipe(recipe);
+		int id = cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		assertTrue(id > 0);
 	}
 
@@ -25,7 +29,7 @@ public class CookbookTests
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
 		Recipe recipe = new Recipe();
-		int id = cont.addRecipe(recipe);
+		int id = cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		boolean success = cont.removeRecipe(id);
 		assertEquals(success, true);
 	}
