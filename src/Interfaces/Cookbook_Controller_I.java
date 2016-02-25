@@ -1,8 +1,7 @@
 package Interfaces;
-
 import java.util.List;
-
 import cs362Cookbook.Ingredient;
+
 
 public interface Cookbook_Controller_I {
 	

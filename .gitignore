@@ -14,6 +14,7 @@ hs_err_pid*
 # Eclipse
 .metadata/
 .settings/
+<<<<<<< HEAD
 /bin
 /bin
 /bin
@@ -112,6 +113,22 @@ hs_err_pid*
 /bin
 /bin
 /bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+/bin
+=======
+*bin/
+>>>>>>> 3edc55e19fbe1cd5f01ac951ba0349071a5bcccd
 /bin
 /bin
 /bin

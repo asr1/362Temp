@@ -39,7 +39,7 @@ public class CookbookTests
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
 		Recipe recipe = new Recipe();
-		Ingredient ing = new Ingredient();
+		Ingredient ing = new Ingredient("Garlic");
 		recipe.addIngredient(ing);
 		boolean result = cont.removeIngredient(ing.getName());
 		boolean contains = recipe.getIngredients().contains(ing);
