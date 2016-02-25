@@ -2,23 +2,36 @@ package cs362Cookbook;
 
 import java.util.Scanner;
 
-import Interfaces.Cookbook_Controller_I;
+import java.util.List;
+import Interfaces.Cookbook_I;
+import Interfaces.Database_Support_I;
+import Interfaces.Ingredient_I;
+import Interfaces.*;
 
-public class Cookbook implements Cookbook_Controller_I
+
+public class Cookbook implements Cookbook_I
 {
-
-	@Override
-	public boolean addIngredient(String name)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	
+	private Database_Support_I db;
+	
+	public Cookbook() {
+		db = null;
 	}
 
+	/**
+	 * Takes a name and adds that ingredient to the cookbook. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
+	 */
 	@Override
-	public int addRecipe(String name)
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean addIngredient(String name) {
+		
+		Ingredient_I I = new Ingredient(name);
+		
+		return db.putIngredient(I);
+		
 	}
 
 	@Override
@@ -28,11 +41,28 @@ public class Cookbook implements Cookbook_Controller_I
 		return false;
 	}
 
+	/**
+	 * Takes a ID number for a recipe and makes a duplicate of that recipe. 
+	 * Returns the ID of the newly created recipe.
+	 * 
+	 * @param ID
+	 * @return int
+	 */
 	@Override
-	public int duplicateRecipe(int ID)
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	public int duplicateRecipe(int ID) {
+		
+		Recipe_I R1 = db.getRecipe(ID);
+		
+		if(R1 == null) {
+			
+			return -1;
+			
+		}
+		
+		Recipe_I R2 = R1.copyRecipe();
+		
+		return db.putRecipe(R2);
+		
 	}
 
 	//returns true if succeeded, otherwise false
@@ -167,5 +197,11 @@ public class Cookbook implements Cookbook_Controller_I
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
+	@Override
+	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

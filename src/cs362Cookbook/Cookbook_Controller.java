@@ -1,14 +1,25 @@
 package cs362Cookbook;
 
+import java.util.List;
+
 import Interfaces.Cookbook_Controller_I;
+import Interfaces.Cookbook_I;
+import Interfaces.Ingredient_I;
 
 
-public class Cookbook_Controller extends Cookbook implements Cookbook_Controller_I
+public class Cookbook_Controller implements Cookbook_Controller_I
 {
+	
+	private Cookbook_I cookbook;
+	
+	public Cookbook_Controller() {
+		cookbook = new Cookbook();
+	}
 	
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
-	public int addRecipe(Recipe rec)
+	@Override
+	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
 	{
 		//TODO
 		return -1;
@@ -59,5 +70,55 @@ public class Cookbook_Controller extends Cookbook implements Cookbook_Controller
 		
 		return false;
 	}
+
+	/**
+	 * Takes a name and adds that ingredient to the cookbook. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
+	 */
+	@Override
+	public boolean addIngredient(String name) {
+		return cookbook.addIngredient(name);
+	}
+
+	@Override
+	public boolean discardRecipe() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Takes a ID number for a recipe and makes a duplicate of that recipe. 
+	 * Returns the ID of the newly created recipe.
+	 * 
+	 * @param ID
+	 * @return int
+	 */
+	@Override
+	public int duplicateRecipe(int ID) {
+		return cookbook.duplicateRecipe(ID);
+	}
+
+	@Override
+	public boolean editRecipe(int ID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean replaceIngredient(String oName, String nName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean saveRecipe() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 	
 }
