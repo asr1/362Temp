@@ -18,6 +18,8 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public int addRecipe(Recipe rec)
 	{
 		//TODO
+		//Will pass each parameter of the recipe to the database with SQL.
+		
 		return -1;
 	}
 	
@@ -25,29 +27,28 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public boolean removeIngredient(String ing)
 	{
 		//TODO
-		//Get ingredients from the database,
+		//Get ingredient from the database,
 		//Ingredient ingredient = getfromdatabase(int)
-		//Remove any that match ing for name.
-		//If there aren't any, return false
-		//Else if there are, continue to iterate
+		
+		//Then, if that ingredient isn't null, remove it
+		//From the database.
+		//If it wasn't in the database, return false
+		
+		//Else continue to iterate
 		//Iterate through each recipe that the ingredient has
 		//List<Recipe> allRecipes = ingredient.getRecipes();
 		//Each ingredient knows which recipes it exists in.
 		
-		//We'll have to eactually perform a get for each,
+		//We'll have to actually perform a get for each,
 		//So it will look like this:
 		
 		//for(int i : allRecpies)
 		//{Recipe r = getRecipeFromDatabase(i);
 		//for(ingredient in : r)
+		//Then delete any ingredients with a name of ing from each recipe
 		//{if ing.name.equal(ing)
 		//{r.removeIngredient(i)}}}
 		//Then return true
-		
-		//Then delete any ingredients with a name of ing from each ingredient
-		//For(Recipe r : allRecipes)
-		//for(Ingredient i : r)
-
 		
 		return false;
 	}

@@ -70,8 +70,8 @@ public class Recipe implements Recipe_I
 		//Explicit cast, just in case (it's safe now)
 		Recipe other = (Recipe)that;
 		
-		//Verify that this truly is how we determine equality (am I forgetting anything? Did I add something extra?)
-		return this.author.equals(other.author) && this.name.equals(other.name) && this.categories.equals(other.categories) && this.ingredients.equals(other.ingredients);
+		//Verify that this truly is how we determine equality (am I forgetting anything? Did I add something extra?). //ID should never be equal.
+		return this.author.equals(other.author) && this.name.equals(other.name) && this.categories.equals(other.categories) && this.ingredients.equals(other.ingredients) && this.id != other.id;
 	}
 	
 }
