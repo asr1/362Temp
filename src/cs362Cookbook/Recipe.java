@@ -52,4 +52,26 @@ public class Recipe implements Recipe_I
 		return null;
 	}
 	
+	@Override
+	public boolean equals(Object that)
+	{
+		//Equality
+		if(this == that)
+		{
+			return true;
+		}
+		
+		//Typeof error
+		if ( !(that instanceof Recipe) )
+		{
+			return false;
+		}
+		
+		//Explicit cast, just in case (it's safe now)
+		Recipe other = (Recipe)that;
+		
+		//Verify that this truly is how we determine equality (am I forgetting anything? Did I add something extra?)
+		return this.author.equals(other.author) && this.name.equals(other.name) && this.categories.equals(other.categories) && this.ingredients.equals(other.ingredients);
+	}
+	
 }

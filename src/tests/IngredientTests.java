@@ -8,7 +8,13 @@ public class IngredientTests
 {
 
 	@Test
-	public void test()
+	public void ingredientRemoveRecipe()
+	{
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void ingredientAddRecipe()
 	{
 		fail("Not yet implemented");
 	}
