@@ -26,13 +26,23 @@ public class Cookbook_Controller extends Cookbook
 		//List<Recipe> allRecipes = ingredient.getRecipes();
 		//Each ingredient knows which recipes it exists in.
 		
+		//This is slightly wrong, each ingredient has a lsit of recipe IDs,
+		//We'll have to eactually perform a get for each,
+		//So it will look like this:
+		
+		//for(int i : allRecpies)
+		//{Recipe r = getRecipeFromDatabase(i);
+		//for(ingredient in : r)
+		//{if ing.name.equal(ing)
+		//{r.removeIngredient(i)}}}
+		//Then return true
+		
+		
+		
 		//Then delete any ingredients with a name of ing from each ingredient
 		//For(Recipe r : allRecipes)
 		//for(Ingredient i : r)
-		//{if i.name.equal(ing)
-		//{r.removeIngredient(i)}}
-		//Then return true
-		
+
 		
 		return false;
 	}
