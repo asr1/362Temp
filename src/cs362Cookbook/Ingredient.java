@@ -16,6 +16,12 @@ public class Ingredient implements Ingredient_I
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
 	@Override
 	public boolean removeRecipe(Recipe_I R)
 	{
