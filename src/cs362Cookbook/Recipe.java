@@ -14,7 +14,7 @@ public class Recipe implements Recipe_I
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
-	String instruciton;
+	String instruction;
 	
 	public String getName()
 	{
