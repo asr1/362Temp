@@ -28,7 +28,7 @@ public class Recipe implements Recipe_I
 	
 	public String getInstruction()
 	{
-		return instruciton;
+		return instruction;
 	}
 	
 	
