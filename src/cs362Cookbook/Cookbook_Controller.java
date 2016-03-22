@@ -109,8 +109,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 
 	@Override
 	public boolean replaceIngredient(String oName, String nName) {
-		// TODO Auto-generated method stub
-		return false;
+		return cookbook.replaceIngredient(oName, nName);
 	}
 
 	@Override

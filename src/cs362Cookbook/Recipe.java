@@ -66,6 +66,7 @@ public class Recipe implements Recipe_I
 		}
 		
 		// lets not trust .clone()
+		R.id = -1;
 		R.isFavorite = this.isFavorite;
 		R.author = this.author;
 		R.name = this.name;

@@ -15,7 +15,7 @@ public class Cookbook implements Cookbook_I
 	private Database_Support_I db;
 	
 	public Cookbook() {
-		db = null;
+		db = new Database_Support();
 	}
 
 	/**
@@ -185,10 +185,23 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public boolean replaceIngredient(String oName, String nName)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean replaceIngredient(String oName, String nName) {
+		
+		Ingredient_I I_old = db.getIngredient(oName);
+		Ingredient_I I_new = db.getIngredient(nName);
+		
+		List<Recipe_I> list = I_old.getRecipes(db);
+		
+		for(Recipe_I R : list) {
+			R.addIngredient(I_new);
+			R.removeIngredient(I_old);
+			db.putRecipe(R);
+		}
+		
+		db.putIngredient(I_new);
+		
+		return db.deleteIngredient(I_old);
+		
 	}
 
 	@Override
