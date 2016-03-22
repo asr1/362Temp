@@ -190,6 +190,10 @@ public class Cookbook implements Cookbook_I
 		Ingredient_I I_old = db.getIngredient(oName);
 		Ingredient_I I_new = db.getIngredient(nName);
 		
+		if(I_old == null || I_new == null) {
+			return false;
+		}
+		
 		List<Recipe_I> list = I_old.getRecipes(db);
 		
 		for(Recipe_I R : list) {
