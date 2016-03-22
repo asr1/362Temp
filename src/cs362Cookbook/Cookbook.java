@@ -190,6 +190,10 @@ public class Cookbook implements Cookbook_I
 		Ingredient_I I_old = db.getIngredient(oName);
 		Ingredient_I I_new = db.getIngredient(nName);
 		
+		if(I_old == null || I_new == null) {
+			return false;
+		}
+		
 		List<Recipe_I> list = I_old.getRecipes(db);
 		
 		for(Recipe_I R : list) {
@@ -212,10 +216,8 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
+	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
 	{
-		Recipe recipe = new Recipe(name, author, ingredients, instruction);
-		
 		// TODO Auto-generated method stub
 		return 0;
 	}
