@@ -212,8 +212,10 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
+	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
 	{
+		Recipe recipe = new Recipe(name, author, ingredients, instruction);
+		
 		// TODO Auto-generated method stub
 		return 0;
 	}
