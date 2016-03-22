@@ -69,7 +69,7 @@ public class Recipe implements Recipe_I
 			
 		} catch (CloneNotSupportedException e) {
 			
-			R = new Recipe();
+			R = new Recipe(this.name, this.author, new ArrayList<Ingredient_I>(), this.instruction);
 			
 		}
 		
