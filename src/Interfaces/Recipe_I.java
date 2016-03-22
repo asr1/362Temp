@@ -14,4 +14,7 @@ public interface Recipe_I {
 	//Needed to confirm copy succeeds
 	@Override
 	public boolean equals(Object aThat);
+	
+	// Database Support needed calls
+	public int getID();
 }

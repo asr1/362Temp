@@ -14,7 +14,7 @@ public class Recipe implements Recipe_I
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
-	String instruciton;
+	String instruction;
 	
 	public String getName()
 	{
@@ -28,7 +28,7 @@ public class Recipe implements Recipe_I
 	
 	public String getInstruction()
 	{
-		return instruciton;
+		return instruction;
 	}
 	
 	
@@ -122,6 +122,12 @@ public class Recipe implements Recipe_I
 		
 		//Verify that this truly is how we determine equality (am I forgetting anything? Did I add something extra?). //ID should never be equal.
 		return this.author.equals(other.author) && this.name.equals(other.name) && this.categories.equals(other.categories) && this.ingredients.equals(other.ingredients) && this.id != other.id;
+	}
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
