@@ -16,6 +16,14 @@ public class Recipe implements Recipe_I
 	Rating rating = Rating.NONE;
 	String instruction;
 	
+	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction)
+	{
+		this.name = new_name;
+		this.author = new_author;
+		this.ingredients = new_ingredients;
+		this.instruction = new_instruction;
+	}
+	
 	public String getName()
 	{
 		return name;
