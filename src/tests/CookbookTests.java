@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class CookbookTests
 	public void cookbookAddRecipeTest()
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
-		Recipe recipe = new Recipe();
+		Recipe recipe = new Recipe("name", "author", null, "instruction");
 		int id = cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		assertTrue(id > 0);
 	}
@@ -28,7 +28,7 @@ public class CookbookTests
 	public void cookbookRemoveRecipeTest()
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
-		Recipe recipe = new Recipe();
+		Recipe recipe = new Recipe("name", "author", null, "instruction");
 		int id = cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		boolean success = cont.removeRecipe(id);
 		assertEquals(success, true);
@@ -38,7 +38,7 @@ public class CookbookTests
 	public void cookbookRemoveIngredientTest() 
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
-		Recipe recipe = new Recipe();
+		Recipe recipe = new Recipe("name", "author", null, "instruction"); //TODO, this will null pointer
 		Ingredient ing = new Ingredient("Garlic");
 		recipe.addIngredient(ing);
 		boolean result = cont.removeIngredient(ing.getName());
