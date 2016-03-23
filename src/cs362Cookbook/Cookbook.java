@@ -43,6 +43,7 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean discardRecipe()
 	{
+		editID = -1;
 		File file = new File("temp.txt");
 		return file.delete();
 	}
