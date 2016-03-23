@@ -2,8 +2,6 @@ package Interfaces;
 
 import java.util.List;
 
-import cs362Cookbook.Recipe;
-
 
 public interface Cookbook_I {
 	
@@ -15,6 +13,6 @@ public interface Cookbook_I {
 	public boolean removeIngredient(String name);
 	public boolean removeRecipe(int ID);
 	public boolean replaceIngredient(String oName, String nName);
-	public boolean saveRecipe(Recipe recipe);
+	public boolean saveRecipe();
 	
 }

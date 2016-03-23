@@ -17,8 +17,11 @@ public class Cookbook implements Cookbook_I
 	
 	public Database_Support_I db;
 	
+	private int editID;
+	
 	public Cookbook() {
 		db = new Database_Support();
+		editID = -1;
 	}
 
 	/**
@@ -72,59 +75,69 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean editRecipe(int ID)
 	{
-		//Get Recipe from database
-		Recipe recipe = (Recipe) db.getRecipe(ID);
-		
-		//print recipe data to new text file temp.txt
-		File file = new File("temp.txt");
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter(file);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-		//Print Name
-		writer.println("#Name");
-		writer.println(recipe.name);
-		
-		//Print Authors
-		writer.println("#Authors");
-		writer.println(recipe.author);
-		
-		//Print Instructions
-		writer.println("#Instruction");
-		writer.println(recipe.instruction);
-		
-		//Print ingredients
-		writer.println("#Ingredients");
-		List<Ingredient_I> ingredients = recipe.getIngredients(db);
-		for(int i = 0; i < ingredients.size(); i++)
+		if(editID == -1)
 		{
-			writer.println(((Ingredient)ingredients.get(i)).getName());
-		}
-		
-		//prompt changes
-		System.out.println("temp.txt created, please edit the file to make changes");
-		System.out.println("Save chabges to recipe? <Y/N>");
-		
-		//process input
-		Scanner scan = new Scanner(System.in);
-		String input = "";
-		while (!scan.next().equals("Y")&&!scan.next().equals("N"))
-		{
-		}
-		scan.close();
-		
-		//save edits to recipe
-		if(input.equals("Y"))
-		{
-			saveRecipe(recipe);
-		}
-		
-		//
-		else{
+			//save editted recie's ID
+			editID = ID;
 			
+			//Get Recipe from database
+			Recipe recipe = (Recipe) db.getRecipe(ID);
+			
+			//print recipe data to new text file temp.txt
+			File file = new File("temp.txt");
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(file);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
+			//Print Name
+			writer.println("#Name");
+			writer.println(recipe.name);
+			
+			//Print Authors
+			writer.println("#Authors");
+			writer.println(recipe.author);
+			
+			//Print Instructions
+			writer.println("#Instruction");
+			writer.println(recipe.instruction);
+			
+			//Print ingredients
+			writer.println("#Ingredients");
+			List<Ingredient_I> ingredients = recipe.getIngredients(db);
+			for(int i = 0; i < ingredients.size(); i++)
+			{
+				writer.println(((Ingredient)ingredients.get(i)).getName());
+			}
+			
+			//prompt changes
+			System.out.println("temp.txt created, please edit the file to make changes");
+			System.out.println("Save chabges to recipe? <Y/N>");
+			
+			//process input
+			Scanner scan = new Scanner(System.in);
+			String input = "";
+			while (!scan.next().equals("Y")&&!scan.next().equals("N"))
+			{
+			}
+			scan.close();
+			
+			//save edits to recipe
+			if(input.equals("Y"))
+			{
+				saveRecipe();
+			}
+			
+			//
+			else{
+				
+			}
+		}
+		else
+		{
+			System.out.println("Please finish editting: "+editID);	
 		}
 		return false;
 	}
@@ -183,8 +196,9 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public boolean saveRecipe(Recipe recipe)
+	public boolean saveRecipe()
 	{
+		Recipe recipe = (Recipe) db.getRecipe(editID);
 		String input = "";
 		File file = new File("temp.txt");
 		
