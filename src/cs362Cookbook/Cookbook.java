@@ -184,6 +184,13 @@ public class Cookbook implements Cookbook_I
 		return false;
 	}
 
+	/**
+	 * Takes a old ingredient and a new ingredient then uses the new one in place of the old one. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param oName, nName
+	 * @return boolean
+	 */
 	@Override
 	public boolean replaceIngredient(String oName, String nName) {
 		

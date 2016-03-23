@@ -10,7 +10,7 @@ public class Recipe implements Recipe_I
 	int id;
 	boolean isFavorite;
 	String author;
-	List<Ingredient_I> ingredients = new ArrayList<Ingredient_I>();
+	List<Integer> ingredients;
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
@@ -20,7 +20,13 @@ public class Recipe implements Recipe_I
 	{
 		this.name = new_name;
 		this.author = new_author;
-		this.ingredients = new_ingredients;
+		
+		ingredients = new ArrayList<Integer>();
+		
+		for(Ingredient_I I : new_ingredients) {
+			this.addIngredient(I);
+		}
+		
 		this.instruction = new_instruction;
 	}
 	
@@ -38,8 +44,6 @@ public class Recipe implements Recipe_I
 	{
 		return instruction;
 	}
-	
-	
 	
 	@Override
 	public boolean editRecipe(int ID)
@@ -80,11 +84,11 @@ public class Recipe implements Recipe_I
 		R.name = this.name;
 		
 		// lists
-		R.ingredients = new ArrayList<Ingredient_I>();
+		R.ingredients = new ArrayList<Integer>();
 		
-		for(Ingredient_I I : this.ingredients) {
+		for(Integer i : this.ingredients) {
 			
-			R.ingredients.add(I);
+			R.ingredients.add(i);
 			
 		}
 		
@@ -93,17 +97,15 @@ public class Recipe implements Recipe_I
 	}
 	
 	@Override
-	public boolean addIngredient(Ingredient_I I)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addIngredient(Ingredient_I I) {
+		return ingredients.add(I.getID());
 	}
+	
 	@Override
-	public boolean removeIngredient(Ingredient_I I)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeIngredient(Ingredient_I I) {
+		return ingredients.remove(I.getID());
 	}
+	
 	@Override
 	public List<Ingredient_I> getIngredients()
 	{
