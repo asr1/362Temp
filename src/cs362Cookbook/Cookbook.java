@@ -173,15 +173,15 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean removeIngredient(String name)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Ingredient ing = (Ingredient) db.getIngredient(name);
+		return db.deleteIngredient(ing);
 	}
 
 	@Override
 	public boolean removeRecipe(int ID)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Recipe r = (Recipe) db.getRecipe(ID);
+		return db.deleteRecipe(r);
 	}
 
 	/**
@@ -223,9 +223,9 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
+	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		Recipe recipe = new Recipe(name, author, ingredients, instruction);
+		return db.putRecipe(recipe);
 	}
 }
