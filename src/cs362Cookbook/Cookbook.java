@@ -15,10 +15,10 @@ import Interfaces.Recipe_I;
 public class Cookbook implements Cookbook_I
 {
 	
-	private Database_Support_I db;
+	public Database_Support_I db;
 	
 	public Cookbook() {
-		db = null;
+		db = new Database_Support();
 	}
 
 	/**
@@ -98,9 +98,10 @@ public class Cookbook implements Cookbook_I
 		
 		//Print ingredients
 		writer.println("#Ingredients");
-		for(int i = 0; i < recipe.ingredients.size(); i++)
+		List<Ingredient_I> ingredients = recipe.getIngredients(db);
+		for(int i = 0; i < ingredients.size(); i++)
 		{
-			writer.println(((Ingredient)recipe.ingredients.get(i)).getName());
+			writer.println(((Ingredient)ingredients.get(i)).getName());
 		}
 		
 		//prompt changes
@@ -139,22 +140,46 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean removeIngredient(String name)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Ingredient ing = (Ingredient) db.getIngredient(name);
+		return db.deleteIngredient(ing);
 	}
 
 	@Override
 	public boolean removeRecipe(int ID)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Recipe r = (Recipe) db.getRecipe(ID);
+		return db.deleteRecipe(r);
 	}
 
+	/**
+	 * Takes a old ingredient and a new ingredient then uses the new one in place of the old one. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param oName, nName
+	 * @return boolean
+	 */
 	@Override
-	public boolean replaceIngredient(String oName, String nName)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean replaceIngredient(String oName, String nName) {
+		
+		Ingredient_I I_old = db.getIngredient(oName);
+		Ingredient_I I_new = db.getIngredient(nName);
+		
+		if(I_old == null || I_new == null) {
+			return false;
+		}
+		
+		List<Recipe_I> list = I_old.getRecipes(db);
+		
+		for(Recipe_I R : list) {
+			R.addIngredient(I_new);
+			R.removeIngredient(I_old);
+			db.putRecipe(R);
+		}
+		
+		db.putIngredient(I_new);
+		
+		return db.deleteIngredient(I_old);
+		
 	}
 
 	@Override
@@ -214,9 +239,9 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
-	public int addRecipe(String name, String Author, List<Ingredient_I> ingredients, String instruction)
+	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		Recipe recipe = new Recipe(name, author, ingredients, instruction);
+		return db.putRecipe(recipe);
 	}
 }

@@ -3,6 +3,7 @@ package cs362Cookbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
 import Interfaces.Recipe_I;
 public class Recipe implements Recipe_I
@@ -10,11 +11,25 @@ public class Recipe implements Recipe_I
 	int id;
 	boolean isFavorite;
 	String author;
-	List<Ingredient_I> ingredients = new ArrayList<Ingredient_I>();
+	List<Integer> ingredients;
 	List<Category> categories = new ArrayList<Category>();
 	String name;
 	Rating rating = Rating.NONE;
 	String instruction;
+	
+	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction)
+	{
+		this.name = new_name;
+		this.author = new_author;
+		
+		ingredients = new ArrayList<Integer>();
+		
+		for(Ingredient_I I : new_ingredients) {
+			this.addIngredient(I);
+		}
+		
+		this.instruction = new_instruction;
+	}
 	
 	public String getName()
 	{
@@ -30,8 +45,6 @@ public class Recipe implements Recipe_I
 	{
 		return instruction;
 	}
-	
-	
 	
 	@Override
 	public boolean editRecipe(int ID)
@@ -61,21 +74,22 @@ public class Recipe implements Recipe_I
 			
 		} catch (CloneNotSupportedException e) {
 			
-			R = new Recipe();
+			R = new Recipe(this.name, this.author, new ArrayList<Ingredient_I>(), this.instruction);
 			
 		}
 		
 		// lets not trust .clone()
+		R.id = -1;
 		R.isFavorite = this.isFavorite;
 		R.author = this.author;
 		R.name = this.name;
 		
 		// lists
-		R.ingredients = new ArrayList<Ingredient_I>();
+		R.ingredients = new ArrayList<Integer>();
 		
-		for(Ingredient_I I : this.ingredients) {
+		for(Integer i : this.ingredients) {
 			
-			R.ingredients.add(I);
+			R.ingredients.add(i);
 			
 		}
 		
@@ -84,19 +98,17 @@ public class Recipe implements Recipe_I
 	}
 	
 	@Override
-	public boolean addIngredient(Ingredient_I I)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addIngredient(Ingredient_I I) {
+		return ingredients.add(I.getID());
 	}
+	
 	@Override
-	public boolean removeIngredient(Ingredient_I I)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeIngredient(Ingredient_I I) {
+		return ingredients.remove(I.getID());
 	}
+	
 	@Override
-	public List<Ingredient_I> getIngredients()
+	public List<Ingredient_I> getIngredients(Database_Support_I db)
 	{
 		// TODO Auto-generated method stub
 		return null;

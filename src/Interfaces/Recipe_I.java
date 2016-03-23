@@ -9,7 +9,7 @@ public interface Recipe_I {
 	public Recipe_I copyRecipe();
 	public boolean addIngredient(Ingredient_I I);
 	public boolean removeIngredient(Ingredient_I I);
-	public List<Ingredient_I> getIngredients();
+	public List<Ingredient_I> getIngredients(Database_Support_I db);
 	
 	//Needed to confirm copy succeeds
 	@Override
