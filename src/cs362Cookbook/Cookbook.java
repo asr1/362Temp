@@ -1,18 +1,28 @@
 package cs362Cookbook;
 
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.Scanner;
 
-import Interfaces.*;
+import Interfaces.Cookbook_I;
+import Interfaces.Database_Support_I;
+import Interfaces.Ingredient_I;
+import Interfaces.Recipe_I;
+
 
 
 public class Cookbook implements Cookbook_I
 {
 	
-	private Database_Support_I db;
+	public Database_Support_I db;
+	
+	private int editID;
 	
 	public Cookbook() {
 		db = new Database_Support();
+		editID = -1;
 	}
 
 	public boolean removeCategory(String name, int ID)
@@ -59,8 +69,9 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean discardRecipe()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		editID = -1;
+		File file = new File("temp.txt");
+		return file.delete();
 	}
 
 	/**
@@ -91,107 +102,81 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean editRecipe(int ID)
 	{
-		//TODO
-		//Get Recipe from database
-//		Recipe recipe = getRecipe(ID);
-		
-		//print recipe data to new text file temp.txt
-//		File file = new File("temp.txt");
-//		PrintWriter writer = new PrintWriter(file));
-//		writer.println("#Name");
-//		writer.println(recipe.name);
-//		writer.println("#Authors");
-//		writer.println(recipe.author);
-//		writer.println("#Instruction");
-//		writer.println(recipe.instruction);
-//		writer.println("#Ingredients");
-//		for(int i = 0; i < recipe.ingredients.size(); i++)
-//		{
-//		writer.println(recipe.ingredients.get(i).name);
-//		}
-		
-		//prompt changes
-		System.out.println("temp.txt created, please edit the file to make changes");
-		System.out.println("Save chabges to recipe? <Y/N>");
-		
-		//process input
-		Scanner scan = new Scanner(System.in);
-		String input = "";
-		while (!scan.next().equals("Y")&&!scan.next().equals("N"))
+		if(editID == -1)
 		{
+			//save editted recie's ID
+			editID = ID;
+			
+			//Get Recipe from database
+			Recipe recipe = (Recipe) db.getRecipe(ID);
+			
+			//print recipe data to new text file temp.txt
+			File file = new File("temp.txt");
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(file);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
+			//Print Name
+			writer.println("#Name");
+			writer.println(recipe.name);
+			
+			//Print Authors
+			writer.println("#Authors");
+			writer.println(recipe.author);
+			
+			//Print Instructions
+			writer.println("#Instruction");
+			writer.println(recipe.instruction);
+			
+			//Print ingredients
+			writer.println("#Ingredients");
+			List<Ingredient_I> ingredients = recipe.getIngredients(db);
+			for(int i = 0; i < ingredients.size(); i++)
+			{
+				writer.println(((Ingredient)ingredients.get(i)).getName());
+			}
+			
+			//prompt changes
+			System.out.println("temp.txt created, please edit the file to make changes");
+			System.out.println("Save chabges to recipe? <Y/N>");
+			
+			//process input
+			Scanner scan = new Scanner(System.in);
+			String input = "";
+			while (!scan.next().equals("Y")&&!scan.next().equals("N"))
+			{
+			}
+			scan.close();
+			
+			//save edits to recipe
+			if(input.equals("Y"))
+			{
+				saveRecipe();
+			}
+			
+			//
+			else{
+				
+			}
 		}
-		scan.close();
-		
-		//save edits to recipe
-		if(input.equals("Y"))
+		else
 		{
-			//process inputs
-//			Scanner edits = new Scanner(file);
-//			input="";
-			
-			//wait for first non-#starting line
-//			while(edits.hasNext()&&(input.charAt(0)==('#'))}
-//			{
-//				input = edits.nextLine();
-//			}
-			
-			//clear recipe name then set equal to next non-#starting lines 
-//			recipe.name="";
-//			while(edits.hasNext()&&!(input.charAt(0)==('#'))
-//			{
-//				recipe.name+=edits.nextLine()+" ";
-//			}
-
-			//wait for next non-#starting line
-//			while(edits.hasNext()&&(input.charAt(0)==('#'))}
-//			{
-//			input = edits.nextLine();
-//			}
-			
-			
-			//clear recipe author then set equal to next non-#starting lines 
-//			recipe.author="";
-//			while(edits.hasNext()&&!(input.charAt(0)==('#'))
-//			{
-//				recipe.author+=input+" ";
-//				input = edits.nextLine();
-//			}
-			
-			//wait for next non-#starting line
-//			while(edits.hasNext()&&(input.charAt(0)==('#'))}
-//			{
-//			input = edits.nextLine();
-//			}
-			
-			//clear recipe instructions then set equal to next non-#starting lines 
-//			recipe.instruction="";
-//			while(edits.hasNext()&&!(input.charAt(0)==('#'))
-//			{
-//				recipe.instruction+=input+" ";
-//				input = edits.nextLine();
-//			}
-			
-			//wait for next non-#starting line
-//			while(edits.hasNext()&&(input.charAt(0)==('#'))}
-//			{
-//			input = edits.nextLine();
-//			}
-			
-			//clear recipe ingredients then set equal to next non-#starting lines 
-//			recipe.ingredients.empty();
-//			while(edits.hasNext()&&!(input.charAt(0)==('#'))
-//			{
-//				recipe.instruction+=input+" ";
-//				input = edits.nextLine();
-//			}
-		}
-		//
-		else{
-			
+			System.out.println("Please finish editting: "+editID);	
 		}
 		return false;
 	}
 
+	private void editsWait(Scanner edits, String input){
+		//wait for next non-#starting line
+		while(edits.hasNext()&&(input.charAt(0)==('#')))
+		{
+			input = edits.nextLine();
+		}
+	}
+	
 	@Override
 	public boolean removeIngredient(String name)
 	{
@@ -206,6 +191,13 @@ public class Cookbook implements Cookbook_I
 		return db.deleteRecipe(r);
 	}
 
+	/**
+	 * Takes a old ingredient and a new ingredient then uses the new one in place of the old one. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param oName, nName
+	 * @return boolean
+	 */
 	@Override
 	public boolean replaceIngredient(String oName, String nName) {
 		
@@ -233,8 +225,58 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean saveRecipe()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Recipe recipe = (Recipe) db.getRecipe(editID);
+		String input = "";
+		File file = new File("temp.txt");
+		
+		//process inputs
+		Scanner edits = null;
+		try {
+			edits = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		//wait for first non-#starting line
+		if(edits.hasNextLine()){
+			input=edits.nextLine();
+		}
+		editsWait(edits, input);
+		
+		//clear recipe name then set equal to next non-#starting lines 
+		recipe.name="";
+		while(edits.hasNext()&&!(input.charAt(0)==('#')))
+		{
+			recipe.name+=edits.nextLine()+" ";
+		}
+		editsWait(edits, input);			
+		
+		//clear recipe author then set equal to next non-#starting lines 
+		recipe.author="";
+		while(edits.hasNext()&&!(input.charAt(0)==('#')))
+		{
+			recipe.author+=input+" ";
+			input = edits.nextLine();
+		}
+		editsWait(edits, input);
+		
+		//clear recipe instructions then set equal to next non-#starting lines 
+		recipe.instruction="";
+		while(edits.hasNext()&&!(input.charAt(0)==('#')))
+		{
+			recipe.instruction+=input+" ";
+			input = edits.nextLine();
+		}
+		editsWait(edits, input);
+		
+		//clear recipe ingredients then set equal to next non-#starting lines 
+		recipe.ingredients.clear();
+		while(edits.hasNext()&&!(input.charAt(0)==('#')))
+		{
+			recipe.instruction+=input+" ";
+			input = edits.nextLine();
+		}
+		return db.putRecipe(recipe)>0;
 	}
 
 	@Override
