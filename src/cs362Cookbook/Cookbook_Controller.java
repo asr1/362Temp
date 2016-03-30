@@ -25,6 +25,18 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return -1;
 	}
 	
+	public boolean removeCategory(String name, int ID)
+	{
+		//TODO
+		return false;
+	}
+	
+	public  boolean unrate(int ID)
+	{
+		//TODO
+		return false;
+	}
+	
 	//Returns true if the remove succeeded, or false otherwise.
 	public boolean removeIngredient(String ing)
 	{

@@ -39,7 +39,16 @@ public class Recipe implements Recipe_I
 		return instruction;
 	}
 	
+	public boolean removeCategory(Category category)
+	{
+		return categories.remove(category);
+	}
 	
+	public boolean unrate()
+	{
+		rating = Rating.NONE;
+		return true;
+	}
 	
 	@Override
 	public boolean editRecipe(int ID)

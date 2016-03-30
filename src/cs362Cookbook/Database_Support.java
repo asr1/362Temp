@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.Category_I;
 import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
 import Interfaces.Recipe_I;
@@ -72,7 +73,11 @@ public class Database_Support implements Database_Support_I {
 			e.printStackTrace();
 		}
 	}
+	
 
+
+
+	//Returns a number greater than 0 if success, or -1 otherwise.
 	@Override
 	public int putRecipe(Recipe_I R) {
 		// TODO Auto-generated method stub
@@ -89,6 +94,12 @@ public class Database_Support implements Database_Support_I {
 	public boolean deleteRecipe(Recipe_I R) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public Category_I getCategory(String name)
+	{
+		//TODO
+		return null;
 	}
 
 	@Override
@@ -216,5 +227,16 @@ public class Database_Support implements Database_Support_I {
 		
 		return true;
 	}
+
+
+
+
+	@Override
+	public boolean putCategory(Category_I C)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

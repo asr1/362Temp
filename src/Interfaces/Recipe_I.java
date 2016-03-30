@@ -2,6 +2,8 @@ package Interfaces;
 
 import java.util.List;
 
+import cs362Cookbook.Category;
+
 public interface Recipe_I {
 
 	public boolean editRecipe(int ID);
@@ -10,6 +12,8 @@ public interface Recipe_I {
 	public boolean addIngredient(Ingredient_I I);
 	public boolean removeIngredient(Ingredient_I I);
 	public List<Ingredient_I> getIngredients();
+	public boolean removeCategory(Category category);
+	public boolean unrate();
 	
 	//Needed to confirm copy succeeds
 	@Override

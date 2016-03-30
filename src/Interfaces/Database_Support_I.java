@@ -9,5 +9,6 @@ public interface Database_Support_I {
 	public Ingredient_I getIngredient(String name);
 	public Ingredient_I getIngredient(int ID);
 	public boolean deleteIngredient(Ingredient_I I);
-	
+	public Category_I getCategory(String name);
+	public boolean putCategory(Category_I C);
 }

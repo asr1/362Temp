@@ -1,11 +1,8 @@
 package cs362Cookbook;
 
 import java.util.Scanner;
-
 import java.util.List;
-import Interfaces.Cookbook_I;
-import Interfaces.Database_Support_I;
-import Interfaces.Ingredient_I;
+
 import Interfaces.*;
 
 
@@ -18,6 +15,31 @@ public class Cookbook implements Cookbook_I
 		db = new Database_Support();
 	}
 
+	public boolean removeCategory(String name, int ID)
+	{
+		Recipe r = (Recipe) db.getRecipe(ID);
+		Category cat = (Category) db.getCategory(name);
+		if(r == null || cat == null)
+		{
+			return false;
+		}
+		 r.removeCategory(cat);
+		 cat.removeRecipe(r);
+		 return db.putRecipe(r) > 0 && db.putCategory(cat);
+		 
+	}
+	
+	public  boolean unrate(int ID)
+	{
+		Recipe r = (Recipe) db.getRecipe(ID);
+		if(r == null)
+		{
+			return false;
+		}
+		r.unrate();
+		return db.putRecipe(r) > 0;
+	}
+	
 	/**
 	 * Takes a name and adds that ingredient to the cookbook. 
 	 * Returns a boolean whether it was successful or not.
