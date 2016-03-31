@@ -73,10 +73,9 @@ public class Recipe implements Recipe_I
 	}
 	
 	@Override
-	public boolean unrate()
+	public void unrate()
 	{
 		rating = Rating.NONE;
-		return true;
 	}
 	
 	@Override
