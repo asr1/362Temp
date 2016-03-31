@@ -77,9 +77,8 @@ public class Database_Support implements Database_Support_I {
 
 
 
-	//Returns a number greater than 0 if success, or -1 otherwise.
 	@Override
-	public int putRecipe(Recipe_I R) {
+	public boolean putRecipe(Recipe_I R) {
 		try {
 			
 			if(R.getID() == -1) {
@@ -116,10 +115,10 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
-			return -1;
+			return false;
 		}
 		
-		return 1;
+		return true;
 	}
 
 	@Override

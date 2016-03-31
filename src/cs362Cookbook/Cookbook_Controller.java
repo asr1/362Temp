@@ -19,10 +19,10 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
 	@Override
-	public int addRecipe(String name, String author, List<Integer> ingredients, String instruction)
+	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
 	{
 		//TODO
-		return -1;
+		return false;
 	}
 	
 	public boolean removeCategory(String name, int ID)
@@ -31,7 +31,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return false;
 	}
 	
-	public  boolean unrate(int ID)
+	public boolean unrate(int ID)
 	{
 		//TODO
 		return false;
@@ -109,7 +109,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	 * @return int
 	 */
 	@Override
-	public int duplicateRecipe(int ID) {
+	public boolean duplicateRecipe(int ID) {
 		return cookbook.duplicateRecipe(ID);
 	}
 

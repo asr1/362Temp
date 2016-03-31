@@ -35,11 +35,12 @@ public class Cookbook implements Cookbook_I
 		}
 		 r.removeCategory(cat);
 		 cat.removeRecipe(r);
-		 return db.putRecipe(r) > 0 && db.putCategory(cat);
+		 return db.putRecipe(r) && db.putCategory(cat);
 		 
 	}
 	
-	public  boolean unrate(int ID)
+	@Override
+	public boolean unrate(int ID)
 	{
 		Recipe r = (Recipe) db.getRecipe(ID);
 		if(r == null)
@@ -47,7 +48,7 @@ public class Cookbook implements Cookbook_I
 			return false;
 		}
 		r.unrate();
-		return db.putRecipe(r) > 0;
+		return db.putRecipe(r);
 	}
 	
 	/**
@@ -82,13 +83,13 @@ public class Cookbook implements Cookbook_I
 	 * @return int
 	 */
 	@Override
-	public int duplicateRecipe(int ID) {
+	public boolean duplicateRecipe(int ID) {
 		
 		Recipe_I R1 = db.getRecipe(ID);
 		
 		if(R1 == null) {
 			
-			return -1;
+			return false;
 			
 		}
 		
@@ -276,11 +277,11 @@ public class Cookbook implements Cookbook_I
 			recipe.instruction+=input+" ";
 			input = edits.nextLine();
 		}
-		return db.putRecipe(recipe)>0;
+		return db.putRecipe(recipe);
 	}
 
 	@Override
-	public int addRecipe(String name, String author, List<Integer> ingredients, String instruction)
+	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
 	{
 		Recipe recipe = new Recipe(name, author, ingredients, instruction);
 		return db.putRecipe(recipe);
