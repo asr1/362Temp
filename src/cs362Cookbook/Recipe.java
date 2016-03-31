@@ -33,7 +33,6 @@ public class Recipe implements Recipe_I
 		this.instruction = new_instruction;
 	}
 	
-	
 	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction, boolean newFav)
 	{
 		this.name = new_name;
@@ -49,26 +48,31 @@ public class Recipe implements Recipe_I
 		this.instruction = new_instruction;
 	}
 	
+	@Override
 	public String getName()
 	{
 		return name;
 	}
 	
+	@Override
 	public String getAuthor()
 	{
 		return author;
 	}
 	
+	@Override
 	public String getInstruction()
 	{
 		return instruction;
 	}
 	
+	@Override
 	public boolean removeCategory(Category category)
 	{
 		return categories.remove(category);
 	}
 	
+	@Override
 	public boolean unrate()
 	{
 		rating = Rating.NONE;
@@ -177,11 +181,11 @@ public class Recipe implements Recipe_I
 		return 0;
 	}
 
+	//Returns a list of Ingredient IDs
 	@Override
-	public List<Ingredient_I> getIngredients()
+	public List<Integer> getIngredients()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return ingredients;
 	}
 
 	@Override

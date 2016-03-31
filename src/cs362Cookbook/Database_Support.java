@@ -80,8 +80,46 @@ public class Database_Support implements Database_Support_I {
 	//Returns a number greater than 0 if success, or -1 otherwise.
 	@Override
 	public int putRecipe(Recipe_I R) {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			
+			if(R.getID() == -1) {
+				// INSERT
+				query.executeQuery("Insert into db362grp09.Recipe" + 
+					"(name)" + 
+					"Values" +
+					"(" + R.getName() +")");
+				
+				ResultSet r;
+				
+				r = query.executeQuery("Select id" +
+					"From db362grp09.Recipe" +
+					"Where name = " + R.getName());
+				
+				int id = r.getInt(1);
+				
+				for(Integer I : R.getIngredients()) {
+					query.executeQuery("Insert into db362grp09.RtoI" +
+						"(idRecipe, idIgredient)" +
+						"Values" +
+						"(" + R.getID() + ", " + I + ")");
+				}
+			}
+		
+			else {
+				// UPDATE
+				for(Integer I : R.getIngredients()) {
+					query.executeQuery("Insert into db362grp09.RtoI" +
+						"(idRecipe, idIgredient)" +
+						"Values" +
+						"(" + R.getID() + ", " + I + ")");
+				}
+			}
+			
+		} catch (SQLException e) {
+			return -1;
+		}
+		
+		return 1;
 	}
 
 	@Override
@@ -110,11 +148,8 @@ public class Database_Support implements Database_Support_I {
 				ingredients.add(r.getInt(1));
 			}
 			
-			//Okay so there's a discrepency between storing actual ingredients and integers. 
-			//Talk to Branden. If we're just storing Integers now, we need to change our Recipe.addIngredient() method,
-			//As well as our constructors.
 			result = new Recipe(name, author, ingredients, instruction, favorite);
-			//result = new Recipe(name, author, null, instruction, favorite);//TODO: TEMPORARY
+
 			
 		} catch (SQLException e) {
 			result = null;
@@ -127,8 +162,20 @@ public class Database_Support implements Database_Support_I {
 
 	@Override
 	public boolean deleteRecipe(Recipe_I R) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			
+			query.executeQuery("Delete from db362grp09.RtoI" +
+					"Where idRecipe = " + R.getID());
+			
+			query.executeQuery("Delete from db362grp09.Recipe" +
+					"Where id = " + R.getID());
+			
+		
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public Category_I getCategory(String name)
@@ -138,7 +185,8 @@ public class Database_Support implements Database_Support_I {
 	}
 
 	@Override
-	public boolean putIngredient(Ingredient_I I) {
+	public boolean putIngredient(Ingredient_I I)
+	{
 		try {
 			
 			if(I.getID() == -1) {
