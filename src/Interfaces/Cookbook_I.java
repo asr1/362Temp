@@ -16,5 +16,6 @@ public interface Cookbook_I {
 	public boolean saveRecipe();
 	public boolean removeCategory(String name, int ID);
 	public  boolean unrate(int ID);
+	public boolean show(int ID);
 	
 }

@@ -285,4 +285,17 @@ public class Cookbook implements Cookbook_I
 		Recipe recipe = new Recipe(name, author, ingredients, instruction);
 		return db.putRecipe(recipe);
 	}
+
+	@Override
+	public boolean show(int ID)
+	{
+		Recipe rec = (Recipe) db.getRecipe(ID);
+		if(rec == null)
+		{
+			return false;
+		}
+		rec.show();
+		return true;
+
+	}
 }

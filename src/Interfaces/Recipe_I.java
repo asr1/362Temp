@@ -15,6 +15,7 @@ public interface Recipe_I {
 	public boolean removeCategory(Category category);
 	public boolean unrate();
 	public List<Ingredient_I> getIngredients(Database_Support_I db);
+	public void show();
 	
 	//Needed to confirm copy succeeds
 	@Override

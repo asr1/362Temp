@@ -130,6 +130,12 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return false;
 	}
 
+	@Override
+	public boolean show(int ID)
+	{
+		return cookbook.show(ID);
+	}
+
 
 	
 }

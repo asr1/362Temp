@@ -16,6 +16,7 @@ public class Recipe implements Recipe_I
 	String name;
 	Rating rating = Rating.NONE;
 	String instruction;
+	private boolean isHidden;
 	
 	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction)
 	{
@@ -158,6 +159,12 @@ public class Recipe implements Recipe_I
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void show()
+	{
+		isHidden = false;
 	}
 	
 }
