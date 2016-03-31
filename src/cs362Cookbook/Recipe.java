@@ -22,6 +22,22 @@ public class Recipe implements Recipe_I
 	{
 		this.name = new_name;
 		this.author = new_author;
+		this.isFavorite = false;
+		
+		ingredients = new ArrayList<Integer>();
+		
+		for(Ingredient_I I : new_ingredients) {
+			this.addIngredient(I);
+		}
+		
+		this.instruction = new_instruction;
+	}
+	
+	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction, boolean newFav)
+	{
+		this.name = new_name;
+		this.author = new_author;
+		this.isFavorite = newFav;
 		
 		ingredients = new ArrayList<Integer>();
 		

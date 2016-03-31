@@ -86,8 +86,43 @@ public class Database_Support implements Database_Support_I {
 
 	@Override
 	public Recipe_I getRecipe(int ID) {
-		// TODO Auto-generated method stub
-		return null;
+		Recipe_I result;
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select name" +
+					"From db362grp09.Recipe" +
+					"Where id = " + ID);
+			
+			String author = r.getString(1);
+			String name = r.getString(2);
+			String instruction = r.getString(3);
+			boolean favorite  = Integer.parseInt(r.getString(4)) != 0;
+			
+			r = query.executeQuery("Select idIgredient" +
+					"From db362grp09.RtoI" +
+					"Where idRecipe = " + ID);
+			
+			
+			List<Integer> ingredients = new ArrayList<Integer>();
+			
+			while(r.next()) {
+				ingredients.add(r.getInt(1));
+			}
+			
+			//Okay so there's a discrepency between storing actual ingredients and integers. 
+			//Talk to Branden. If we're just storing Integers now, we need to change our Recipe.addIngredient() method,
+			//As well as our constructors.
+		//	result = new Recipe(name, author, ingredients, instruction, favorite);
+			result = new Recipe(name, author, null, instruction, favorite);//TODO: TEMPORARY
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
+
+		
 	}
 
 	@Override
