@@ -18,7 +18,7 @@ public class Recipe implements Recipe_I
 	String instruction;
 	private boolean isHidden;
 	
-	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction)
+	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction)
 	{
 		this.name = new_name;
 		this.author = new_author;
@@ -26,14 +26,15 @@ public class Recipe implements Recipe_I
 		
 		ingredients = new ArrayList<Integer>();
 		
-		for(Ingredient_I I : new_ingredients) {
+		for(Integer I : new_ingredients) {
 			this.addIngredient(I);
 		}
 		
 		this.instruction = new_instruction;
 	}
 	
-	public Recipe(String new_name, String new_author, List<Ingredient_I> new_ingredients, String new_instruction, boolean newFav)
+	
+	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction, boolean newFav)
 	{
 		this.name = new_name;
 		this.author = new_author;
@@ -41,7 +42,7 @@ public class Recipe implements Recipe_I
 		
 		ingredients = new ArrayList<Integer>();
 		
-		for(Ingredient_I I : new_ingredients) {
+		for(Integer I : new_ingredients) {
 			this.addIngredient(I);
 		}
 		
@@ -102,7 +103,7 @@ public class Recipe implements Recipe_I
 			
 		} catch (CloneNotSupportedException e) {
 			
-			R = new Recipe(this.name, this.author, new ArrayList<Ingredient_I>(), this.instruction);
+			R = new Recipe(this.name, this.author, new ArrayList<Integer>(), this.instruction);
 			
 		}
 		
@@ -129,6 +130,12 @@ public class Recipe implements Recipe_I
 	public boolean addIngredient(Ingredient_I I) {
 		return ingredients.add(I.getID());
 	}
+	
+	@Override
+	public boolean addIngredient(Integer I) {
+		return ingredients.add(I);
+	}
+	
 	
 	@Override
 	public boolean removeIngredient(Ingredient_I I) {

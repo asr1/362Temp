@@ -97,7 +97,7 @@ public class Database_Support implements Database_Support_I {
 			String author = r.getString(1);
 			String name = r.getString(2);
 			String instruction = r.getString(3);
-			boolean favorite  = Integer.parseInt(r.getString(4)) != 0;
+			boolean favorite  = Integer.parseInt(r.getString(4)) > 0;
 			
 			r = query.executeQuery("Select idIgredient" +
 					"From db362grp09.RtoI" +
@@ -113,8 +113,8 @@ public class Database_Support implements Database_Support_I {
 			//Okay so there's a discrepency between storing actual ingredients and integers. 
 			//Talk to Branden. If we're just storing Integers now, we need to change our Recipe.addIngredient() method,
 			//As well as our constructors.
-		//	result = new Recipe(name, author, ingredients, instruction, favorite);
-			result = new Recipe(name, author, null, instruction, favorite);//TODO: TEMPORARY
+			result = new Recipe(name, author, ingredients, instruction, favorite);
+			//result = new Recipe(name, author, null, instruction, favorite);//TODO: TEMPORARY
 			
 		} catch (SQLException e) {
 			result = null;

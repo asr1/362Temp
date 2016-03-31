@@ -19,7 +19,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
 	@Override
-	public int addRecipe(String name, String author, List<Ingredient_I> ingredients, String instruction)
+	public int addRecipe(String name, String author, List<Integer> ingredients, String instruction)
 	{
 		//TODO
 		return -1;
