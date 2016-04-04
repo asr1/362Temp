@@ -12,7 +12,7 @@ public class Recipe implements Recipe_I
 	boolean isFavorite;
 	String author;
 	List<Integer> ingredients;
-	List<Category> categories = new ArrayList<Category>();
+	List<Integer> categories;
 	String name;
 	Rating rating = Rating.NONE;
 	String instruction;
@@ -29,6 +29,8 @@ public class Recipe implements Recipe_I
 		for(Integer I : new_ingredients) {
 			this.addIngredient(I);
 		}
+		
+		categories = new ArrayList<Integer>();
 		
 		this.instruction = new_instruction;
 	}
