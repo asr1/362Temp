@@ -9,7 +9,16 @@ import Interfaces.Ingredient_I;
 public class Category implements Category_I
 {
 	String name;
-	List<Recipe> recipes = new ArrayList<Recipe>();
+	List<Recipe> recipes;
+	
+	/**
+	 * Public constructor for a Category
+	 * @param name
+	 */
+	public Category(String name) {
+		this.name = name;
+		this.recipes = new ArrayList<Recipe>();
+	}
 
 	@Override
 	public boolean removeRecipe(Recipe rec)
