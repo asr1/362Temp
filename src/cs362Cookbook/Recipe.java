@@ -1,5 +1,8 @@
 package cs362Cookbook;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,6 +196,69 @@ public class Recipe implements Recipe_I
 	public void show()
 	{
 		isHidden = false;
+	}
+
+	/**
+	 * Sets the recipe to hidden.
+	 * 
+	 * @return boolean
+	 */
+	@Override
+	public boolean hide() {
+		return isHidden = true;
+	}
+
+	/**
+	 * Exports the recipe to a file and returns that file name.
+	 * 
+	 * @return String
+	 */
+	@Override
+	public String export(Database_Support_I db) {
+		
+		// new File for this Recipe
+		File f = new File(name + id + ".recipe");
+		
+		// the writer to use
+		PrintWriter out;
+		
+		try {
+			
+			// make our new file
+			f.createNewFile();
+			
+			// set the writer
+			out = new PrintWriter(f);
+			
+			// print the recipe
+			out.println("Recipe\n");
+			out.println("Name         : " + this.name);
+			out.println("Author       : " + this.author);
+			
+			out.println();
+			
+			out.println("Ingredients  :");
+			
+			for(Integer i : ingredients) {
+				Ingredient_I I = db.getIngredient(i);
+				out.print(I.getName() + ", ");
+			}
+			
+			out.println("\n");
+			
+			out.println("Instructions :");
+			out.println(this.instruction);
+			
+		} catch (Exception e) {			
+			return e.toString();
+		}
+		
+		// close the writer
+		out.close();
+		
+		// return
+		return f.getName();
+		
 	}
 	
 }
