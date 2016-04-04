@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 
+import Interfaces.Category_I;
 import Interfaces.Cookbook_I;
 import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
@@ -298,5 +299,45 @@ public class Cookbook implements Cookbook_I
 		rec.show();
 		return true;
 
+	}
+
+	/**
+	 * Takes a name and adds that category to the cookbook. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
+	 */
+	@Override
+	public boolean addCategory(String name) {
+		Category_I C = new Category(name);
+		return db.putCategory(C);
+	}
+
+	/**
+	 * Hides the given recipe (via ID) from the cookbook.
+	 * Returns a boolean whether it was successful or not. 
+	 * 
+	 * @param ID
+	 * @return boolean
+	 */
+	@Override
+	public boolean hideRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+		R.hide();
+		return db.putRecipe(R);
+	}
+
+	/**
+	 * Exports the given recipe (via ID) to a file for sharing.
+	 * Returns a String with the shared file's name.
+	 * 
+	 * @param ID
+	 * @return String
+	 */
+	@Override
+	public String share(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+		return R.export(db);
 	}
 }

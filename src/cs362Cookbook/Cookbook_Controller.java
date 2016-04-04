@@ -136,6 +136,21 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return cookbook.show(ID);
 	}
 
+	@Override
+	public boolean addCategory(String name) {
+		return cookbook.addCategory(name);
+	}
+
+	@Override
+	public boolean hideRecipe(int ID) {
+		return cookbook.hideRecipe(ID);
+	}
+
+	@Override
+	public String share(int ID) {
+		return cookbook.share(ID);
+	}
+
 
 	
 }
