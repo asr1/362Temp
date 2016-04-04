@@ -14,8 +14,11 @@ public interface Cookbook_I {
 	public boolean removeRecipe(int ID);
 	public boolean replaceIngredient(String oName, String nName);
 	public boolean saveRecipe();
+	public boolean addCategory(String name);
 	public boolean removeCategory(String name, int ID);
+	public boolean hideRecipe(int ID);
 	public boolean unrate(int ID);
 	public boolean show(int ID);
+	public String share(int ID);
 	
 }

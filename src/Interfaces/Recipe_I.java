@@ -15,6 +15,8 @@ public interface Recipe_I {
 	public List<Integer> getIngredients();
 	public boolean removeCategory(Category category);
 	public void unrate();
+	public boolean hide();
+	public String export(Database_Support_I db);
 	public List<Ingredient_I> getIngredients(Database_Support_I db);
 	public void show();
 	public String getName();
