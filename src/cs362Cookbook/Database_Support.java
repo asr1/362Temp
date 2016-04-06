@@ -78,6 +78,8 @@ public class Database_Support implements Database_Support_I {
 	
 	@Override
 	public int putRecipe(Recipe_I R) {
+		int id = -1;
+		
 		try {
 			
 			if(R.getID() == -1) {
@@ -93,7 +95,7 @@ public class Database_Support implements Database_Support_I {
 					"From db362grp09.Recipe" +
 					"Where name = " + R.getName());
 				
-				int id = r.getInt(1);
+				id = r.getInt(1);
 				
 				for(Integer I : R.getIngredients()) {
 					query.executeQuery("Insert into db362grp09.RtoI" +
@@ -117,7 +119,7 @@ public class Database_Support implements Database_Support_I {
 			return -1;
 		}
 		
-		return 1;
+		return id;
 	}
 
 	@Override
@@ -177,8 +179,7 @@ public class Database_Support implements Database_Support_I {
 	}
 	
 	@Override
-	public int putIngredient(Ingredient_I I)
-	{
+	public boolean putIngredient(Ingredient_I I) {		
 		try {
 			
 			if(I.getID() == -1) {
@@ -215,10 +216,10 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
-			return -1;
+			return false;
 		}
 		
-		return 1;
+		return true;
 	}
 
 	@Override
@@ -304,14 +305,13 @@ public class Database_Support implements Database_Support_I {
 	}
 
 	@Override
-	public int putCategory(Category_I C)
-	{
+	public boolean putCategory(Category_I C) {
 		// TODO Auto-generated method stub
 		return -1;
 	}
 
-	public Category_I getCategory(String name)
-	{
+	@Override
+	public Category_I getCategory(String name) {
 		//TODO
 		return null;
 	}
