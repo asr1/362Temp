@@ -36,7 +36,7 @@ public class Cookbook implements Cookbook_I
 		}
 		 r.removeCategory(cat);
 		 cat.removeRecipe(r);
-		 return db.putRecipe(r) >0 && db.putCategory(cat) > 0;
+		 return db.putRecipe(r) >0 && db.putCategory(cat);
 		 
 	}
 
@@ -76,7 +76,7 @@ public class Cookbook implements Cookbook_I
 		
 		Ingredient_I I = new Ingredient(name);
 		
-		return db.putIngredient(I) > 0;		
+		return db.putIngredient(I);		
 	}
 
 	@Override
@@ -344,7 +344,7 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean addCategory(String name) {
 		Category_I C = new Category(name);
-		return db.putCategory(C) > 0;
+		return db.putCategory(C);
 	}
 
 	/**
