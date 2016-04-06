@@ -3,6 +3,7 @@ package Interfaces;
 import java.util.List;
 
 import cs362Cookbook.Category;
+import cs362Cookbook.Rating;
 
 public interface Recipe_I {
 
@@ -14,6 +15,7 @@ public interface Recipe_I {
 	public boolean removeIngredient(Ingredient_I I);
 	public List<Integer> getIngredients();
 	public boolean removeCategory(Category category);
+	public void rate(Rating rating);
 	public void unrate();
 	public boolean hide();
 	public String export(Database_Support_I db);
@@ -22,6 +24,8 @@ public interface Recipe_I {
 	public String getName();
 	public String getInstruction();
 	public String getAuthor();
+	public void favorite();
+	public void unfavorite();
 	
 	//Needed to confirm copy succeeds
 	@Override

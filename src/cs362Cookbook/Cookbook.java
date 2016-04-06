@@ -36,8 +36,20 @@ public class Cookbook implements Cookbook_I
 		}
 		 r.removeCategory(cat);
 		 cat.removeRecipe(r);
-		 return db.putRecipe(r) && db.putCategory(cat);
+		 return db.putRecipe(r) >0 && db.putCategory(cat) > 0;
 		 
+	}
+
+	@Override
+	public boolean rate(int ID, Rating rating)
+	{
+		Recipe r = (Recipe) db.getRecipe(ID);
+		if(r == null)
+		{
+			return false;
+		}
+		r.rate(rating);
+		return db.putRecipe(r) > 0;
 	}
 	
 	@Override
@@ -49,7 +61,7 @@ public class Cookbook implements Cookbook_I
 			return false;
 		}
 		r.unrate();
-		return db.putRecipe(r);
+		return db.putRecipe(r) > 0;
 	}
 	
 	/**
@@ -64,8 +76,7 @@ public class Cookbook implements Cookbook_I
 		
 		Ingredient_I I = new Ingredient(name);
 		
-		return db.putIngredient(I);
-		
+		return db.putIngredient(I) > 0;		
 	}
 
 	@Override
@@ -88,15 +99,14 @@ public class Cookbook implements Cookbook_I
 		
 		Recipe_I R1 = db.getRecipe(ID);
 		
-		if(R1 == null) {
-			
+		if(R1 == null) 
+		{
 			return false;
-			
 		}
 		
 		Recipe_I R2 = R1.copyRecipe();
 		
-		return db.putRecipe(R2);
+		return db.putRecipe(R2) > 0;
 		
 	}
 
@@ -111,6 +121,11 @@ public class Cookbook implements Cookbook_I
 			
 			//Get Recipe from database
 			Recipe recipe = (Recipe) db.getRecipe(ID);
+			
+			if(recipe == null)
+			{
+				return false;
+			}
 			
 			//print recipe data to new text file temp.txt
 			File file = new File("temp.txt");
@@ -183,6 +198,12 @@ public class Cookbook implements Cookbook_I
 	public boolean removeIngredient(String name)
 	{
 		Ingredient ing = (Ingredient) db.getIngredient(name);
+
+		if(ing == null)
+		{
+			return false;
+		}
+		
 		return db.deleteIngredient(ing);
 	}
 
@@ -190,6 +211,12 @@ public class Cookbook implements Cookbook_I
 	public boolean removeRecipe(int ID)
 	{
 		Recipe r = (Recipe) db.getRecipe(ID);
+
+		if(r == null)
+		{
+			return false;
+		}
+		
 		return db.deleteRecipe(r);
 	}
 
@@ -228,6 +255,12 @@ public class Cookbook implements Cookbook_I
 	public boolean saveRecipe()
 	{
 		Recipe recipe = (Recipe) db.getRecipe(editID);
+
+		if(recipe == null)
+		{
+			return false;
+		}
+		
 		String input = "";
 		File file = new File("temp.txt");
 		
@@ -278,14 +311,14 @@ public class Cookbook implements Cookbook_I
 			recipe.instruction+=input+" ";
 			input = edits.nextLine();
 		}
-		return db.putRecipe(recipe);
+		return db.putRecipe(recipe) > 0;
 	}
 
 	@Override
 	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
 	{
 		Recipe recipe = new Recipe(name, author, ingredients, instruction);
-		return db.putRecipe(recipe);
+		return db.putRecipe(recipe) > 0;
 	}
 
 	@Override
@@ -311,7 +344,7 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean addCategory(String name) {
 		Category_I C = new Category(name);
-		return db.putCategory(C);
+		return db.putCategory(C) > 0;
 	}
 
 	/**
@@ -324,8 +357,14 @@ public class Cookbook implements Cookbook_I
 	@Override
 	public boolean hideRecipe(int ID) {
 		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
 		R.hide();
-		return db.putRecipe(R);
+		return db.putRecipe(R) > 0;
 	}
 
 	/**
@@ -337,7 +376,33 @@ public class Cookbook implements Cookbook_I
 	 */
 	@Override
 	public String share(int ID) {
-		Recipe_I R = db.getRecipe(ID);
+		Recipe_I R = db.getRecipe(ID);		
 		return R.export(db);
+	}
+
+	@Override
+	public boolean favoriteRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
+		R.favorite();
+		return db.putRecipe(R) > 0;
+	}
+
+	@Override
+	public boolean unfavoriteRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
+		R.unfavorite();
+		return db.putRecipe(R) > 0;
 	}
 }

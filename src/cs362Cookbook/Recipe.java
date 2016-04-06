@@ -12,7 +12,6 @@ import Interfaces.Recipe_I;
 public class Recipe implements Recipe_I
 {
 	int id;
-	boolean isFavorite;
 	String author;
 	List<Integer> ingredients;
 	List<Integer> categories;
@@ -20,11 +19,13 @@ public class Recipe implements Recipe_I
 	Rating rating = Rating.NONE;
 	String instruction;
 	private boolean isHidden;
+	private boolean isFavorite;
 	
 	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction)
 	{
 		this.name = new_name;
 		this.author = new_author;
+		this.isHidden = false;
 		this.isFavorite = false;
 		
 		ingredients = new ArrayList<Integer>();
@@ -75,6 +76,12 @@ public class Recipe implements Recipe_I
 	public boolean removeCategory(Category category)
 	{
 		return categories.remove(category);
+	}
+
+	@Override
+	public void rate(Rating rating)
+	{
+		this.rating = rating;
 	}
 	
 	@Override
@@ -206,6 +213,16 @@ public class Recipe implements Recipe_I
 	@Override
 	public boolean hide() {
 		return isHidden = true;
+	}
+	
+	@Override
+	public void favorite() {
+		isFavorite = true;
+	}
+
+	@Override
+	public void unfavorite() {
+		isFavorite = false;
 	}
 
 	/**

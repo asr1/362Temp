@@ -75,10 +75,9 @@ public class Database_Support implements Database_Support_I {
 	}
 	
 
-
-
+	
 	@Override
-	public boolean putRecipe(Recipe_I R) {
+	public int putRecipe(Recipe_I R) {
 		try {
 			
 			if(R.getID() == -1) {
@@ -115,10 +114,10 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
-			return false;
+			return -1;
 		}
 		
-		return true;
+		return 1;
 	}
 
 	@Override
@@ -177,14 +176,8 @@ public class Database_Support implements Database_Support_I {
 		return true;
 	}
 	
-	public Category_I getCategory(String name)
-	{
-		//TODO
-		return null;
-	}
-
 	@Override
-	public boolean putIngredient(Ingredient_I I)
+	public int putIngredient(Ingredient_I I)
 	{
 		try {
 			
@@ -222,10 +215,10 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
-			return false;
+			return -1;
 		}
 		
-		return true;
+		return 1;
 	}
 
 	@Override
@@ -310,15 +303,16 @@ public class Database_Support implements Database_Support_I {
 		return true;
 	}
 
-
-
-
 	@Override
-	public boolean putCategory(Category_I C)
+	public int putCategory(Category_I C)
 	{
 		// TODO Auto-generated method stub
-		return false;
+		return -1;
 	}
 
-
+	public Category_I getCategory(String name)
+	{
+		//TODO
+		return null;
+	}
 }

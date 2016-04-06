@@ -1,6 +1,8 @@
 package Interfaces;
 import java.util.List;
 
+import cs362Cookbook.Rating;
+
 
 public interface Cookbook_Controller_I {
 	
@@ -16,7 +18,10 @@ public interface Cookbook_Controller_I {
 	public boolean addCategory(String name);
 	public boolean removeCategory(String name, int ID);
 	public boolean hideRecipe(int ID);
+	public boolean rate(int ID, Rating rating);
 	public boolean unrate(int ID);
 	public boolean show(int ID);
+	public boolean favoriteRecipe(int ID);
+	public boolean unfavoriteRecipe(int ID);
 	public String share(int ID);
 }
