@@ -32,6 +32,17 @@ import Interfaces.Recipe_I;
  * `idIgredient` INT NOT NULL,
  * PRIMARY KEY (`idRecipe`, `idIgredient`));
  * 
+ * CREATE TABLE `db362grp09`.`Category` (
+ * `id` INT NOT NULL AUTO_INCREMENT,
+ * `name` CHAR(30) NULL,
+ * PRIMARY KEY (`id`),
+ * UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+ * 
+ * CREATE TABLE `db362grp09`.`RtoC` (
+ * `idRecipe` INT NOT NULL,
+ * `idCategory` INT NOT NULL,
+ * PRIMARY KEY (`idRecipe`, `idCategory`));
+ * 
  */
 
 public class Database_Support implements Database_Support_I {
@@ -306,13 +317,77 @@ public class Database_Support implements Database_Support_I {
 
 	@Override
 	public boolean putCategory(Category_I C) {
-		// TODO Auto-generated method stub
-		return -1;
+		try {
+			
+			if(C.getID() == -1) {
+				// INSERT
+				query.executeQuery("Insert into db362grp09.Category" + 
+					"(name)" + 
+					"Values" +
+					"(" + C.getName() +")");
+				
+				ResultSet r;
+				
+				r = query.executeQuery("Select id" +
+					"From db362grp09.Category" +
+					"Where name = " + C.getName());
+				
+				int id = r.getInt(1);
+				
+				for(Recipe_I R : C.getRecipes(this)) {
+					query.executeQuery("Insert into db362grp09.RtoC" +
+						"(idRecipe, idCategory)" +
+						"Values" +
+						"(" + R.getID() + ", " + id + ")");
+				}
+			}
+		
+			else {
+				// UPDATE
+				for(Recipe_I R : C.getRecipes(this)) {
+					query.executeQuery("Insert into db362grp09.RtoC" +
+						"(idRecipe, idCategory)" +
+						"Values" +
+						"(" + R.getID() + ", " + C.getID() + ")");
+				}
+			}
+			
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public Category_I getCategory(String name) {
-		//TODO
-		return null;
+
+		Category_I result;
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select id" +
+					"From db362grp09.Category" +
+					"Where name = " + name);
+			
+			int id = r.getInt(1);
+			
+			r = query.executeQuery("Select idRecipe" +
+					"From db362grp09.RtoC" +
+					"Where idCategory = " + id);
+			
+			List<Integer> Recipes = new ArrayList<Integer>();
+			
+			while(r.next()) {
+				Recipes.add(r.getInt(1));
+			}
+			
+			result = new Category(id, name, Recipes);
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
 	}
 }
