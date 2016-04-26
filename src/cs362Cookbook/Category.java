@@ -67,4 +67,14 @@ public class Category implements Category_I
 	public boolean addRecipe(Recipe_I R) {
 		return Recipes.add(R.getID());
 	}
+
+	@Override
+	public boolean compare(Category_I C) {
+		if(C == null) {
+			return true;
+		}
+		else {
+			return name.compareTo(C.getName()) < 0;
+		}
+	}
 }
