@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.Category_I;
 import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
 import Interfaces.Recipe_I;
@@ -276,6 +277,27 @@ public class Recipe implements Recipe_I
 		// return
 		return f.getName();
 		
+	}
+
+	/**
+	 * Returns a list of categories attached to this recipe
+	 * 
+	 * @param Database_Support_I
+	 * @return List<Category_I>
+	 */
+	@Override
+	public List<Category_I> getCategories(Database_Support_I db) {
+		List<Category_I> result = new ArrayList<Category_I>();
+		
+		Category_I C = null;
+		
+		for(Integer I : categories) {
+			C = db.getCategory(I);
+			
+			result.add(C);
+		}
+		
+		return result;
 	}
 	
 }
