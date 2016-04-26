@@ -390,4 +390,62 @@ public class Database_Support implements Database_Support_I {
 				
 		return result;
 	}
+
+
+
+	@Override
+	public Category_I getCategory(int id) {
+		
+		Category_I result;
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select name" +
+					"From db362grp09.Category" +
+					"Where id = " + id);
+			
+			String name = r.getString(1);
+			
+			r = query.executeQuery("Select idRecipe" +
+					"From db362grp09.RtoC" +
+					"Where idCategory = " + id);
+			
+			List<Integer> Recipes = new ArrayList<Integer>();
+			
+			while(r.next()) {
+				Recipes.add(r.getInt(1));
+			}
+			
+			result = new Category(id, name, Recipes);
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
+	}
+
+
+
+	@Override
+	public List<Recipe_I> getAllRecipes() {
+		
+		List<Recipe_I> result = new ArrayList<Recipe_I>();
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select id" +
+					"From db362grp09.Recipe");
+			
+			while(r.next()) {
+				result.add(this.getRecipe(r.getInt(1)));
+			}
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
+		
+	}
 }
