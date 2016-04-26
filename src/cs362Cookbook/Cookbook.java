@@ -405,4 +405,74 @@ public class Cookbook implements Cookbook_I
 		R.unfavorite();
 		return db.putRecipe(R) > 0;
 	}
+
+	/**
+	 * Does a search of all the recipes.
+	 * Returns all the recipes in the system.
+	 * 
+	 * @return List<Recipe_I>
+	 */
+	@Override
+	public List<Recipe_I> search() {
+		return db.getAllRecipes();
+	}
+	
+	/**
+	 * Sorts the given recipes by their categories.
+	 * Returns the sorted list of recipes.
+	 * 
+	 * @param List<Recipe_I>
+	 * @return List<Recipe_I>
+	 */
+	@Override
+	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
+		
+		// bubble sort cause I'm cool
+		for(int i = 0; i < L.size(); i++) {
+			
+			Recipe_I R1 = L.get(i);
+			List<Category_I> categories1 = R1.getCategories(db);
+			Category_I C1 = important(categories1);
+			
+			// sort level
+			for(int j = i + 1; j < L.size(); j++) {
+				
+				Recipe_I R2 = L.get(j);
+				List<Category_I> categories2 = R2.getCategories(db);
+				Category_I C2 = important(categories2);
+				
+				if(!C1.compare(C2)) {
+					
+					// swap the two things
+					L.set(i, R2);
+					L.set(j, R1);
+					R1 = R2;
+					
+				}
+				
+			}
+		}
+		
+		return L;
+	}
+	
+	/**
+	 * Helper function for sortCategory
+	 * Returns the most important Category for comparison
+	 * 
+	 * @param List<Category_I>
+	 * @return Category_I
+	 */
+	private Category_I important(List<Category_I> L) {
+		Category_I C = null;
+		
+		// get the most important Category for comparing.
+		for(Category_I c : L) {
+			if(!C.compare(c)) {
+				C = c;
+			}
+		}
+		
+		return C;
+	}
 }
