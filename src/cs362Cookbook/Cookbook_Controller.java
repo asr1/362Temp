@@ -5,6 +5,7 @@ import java.util.List;
 import Interfaces.Cookbook_Controller_I;
 import Interfaces.Cookbook_I;
 import Interfaces.Ingredient_I;
+import Interfaces.Recipe_I;
 
 
 public class Cookbook_Controller implements Cookbook_Controller_I
@@ -133,6 +134,16 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	@Override
 	public String share(int ID) {
 		return cookbook.share(ID);
+	}
+
+	@Override
+	public List<Recipe_I> search() {
+		return cookbook.search();
+	}
+
+	@Override
+	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
+		return cookbook.sortCategory(L);
 	}
 	
 }
