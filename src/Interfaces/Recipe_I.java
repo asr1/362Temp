@@ -26,6 +26,7 @@ public interface Recipe_I {
 	public String getAuthor();
 	public void favorite();
 	public void unfavorite();
+	public List<Category_I> getCategories(Database_Support_I db);
 	
 	//Needed to confirm copy succeeds
 	@Override

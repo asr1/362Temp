@@ -24,4 +24,6 @@ public interface Cookbook_Controller_I {
 	public boolean favoriteRecipe(int ID);
 	public boolean unfavoriteRecipe(int ID);
 	public String share(int ID);
+	public List<Recipe_I> search();
+	public List<Recipe_I> sortCategory(List<Recipe_I> L);
 }
