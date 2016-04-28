@@ -134,5 +134,4 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public String share(int ID) {
 		return cookbook.share(ID);
 	}
-	
 }
