@@ -65,7 +65,7 @@ public class UI {
 		if(command.equals("editRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.editRecipe(scan.nextInt());
+			success = cb.editRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe editted successfully!");
 			}
@@ -97,7 +97,7 @@ public class UI {
 		{
 
 			System.out.print("Recipe ID: ");
-			success = cb.removeRecipe(scan.nextInt());
+			success = cb.removeRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe removed successfully!");
 			}
@@ -108,7 +108,7 @@ public class UI {
 		if(command.equals("duplicateRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.duplicateRecipe(scan.nextInt());
+			success = cb.duplicateRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe duplicated successfully!");
 			}
@@ -169,7 +169,7 @@ public class UI {
 			System.out.print("Category name: ");
 			String name = scan.nextLine();
 			System.out.print("Category ID: ");
-			success = cb.removeCategory(name,scan.nextInt());
+			success = cb.removeCategory(name,Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Category removed successfully!");
 			}
@@ -180,7 +180,7 @@ public class UI {
 		if(command.equals("hideRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.hideRecipe(scan.nextInt());
+			success = cb.hideRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe hidden successfully!");
 			}
@@ -191,7 +191,7 @@ public class UI {
 		if(command.equals("showRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.show(scan.nextInt());
+			success = cb.show(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe showed successfully!");
 			}
@@ -202,7 +202,7 @@ public class UI {
 		if(command.equals("favoriteRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.favoriteRecipe(scan.nextInt());
+			success = cb.favoriteRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe favorited successfully!");
 			}
@@ -213,7 +213,7 @@ public class UI {
 		if(command.equals("unfavoriteRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.unfavoriteRecipe(scan.nextInt());
+			success = cb.unfavoriteRecipe(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe unfavorited successfully!");
 			}
@@ -224,9 +224,10 @@ public class UI {
 		if(command.equals("rate"))
 		{
 			System.out.print("Recipe ID: ");
-			int ID = scan.nextInt();
+			int ID = Integer.parseInt(scan.nextLine());
 			System.out.print("Rating(NONE,1,2,3,4,5): ");
-			success = cb.rate(ID,Rating.toRating(scan.nextLine()));
+			Rating rating= Rating.toRating(scan.nextLine());
+			success = cb.rate(ID,rating);
 			if(success){
 				System.out.println("Recipe rated successfully!");
 			}
@@ -237,7 +238,7 @@ public class UI {
 		if(command.equals("unrate"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.unrate(scan.nextInt());
+			success = cb.unrate(Integer.parseInt(scan.nextLine()));
 			if(success){
 				System.out.println("Recipe unrated successfully!");
 			}
@@ -248,7 +249,7 @@ public class UI {
 		if(command.equals("share"))
 		{
 			System.out.print("Recipe ID: ");
-			cb.share(scan.nextInt());
+			cb.share(Integer.parseInt(scan.nextLine()));
 		}
 		//Iteration3
 		if(command.equals("search"))
