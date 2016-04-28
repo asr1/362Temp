@@ -27,4 +27,5 @@ public interface Cookbook_Controller_I {
 	public List<Recipe_I> search();
 	public List<Recipe_I> sortCategory(List<Recipe_I> L);
 	public List<Recipe_I> sortRating(List<Recipe_I> L);
+	public List<Recipe_I> filterSource(String source);
 }

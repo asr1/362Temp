@@ -3,6 +3,7 @@ package cs362Cookbook;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -490,6 +491,22 @@ public class Cookbook implements Cookbook_I
 			  }
 		});
 		return L;
+	}
+
+	@Override
+	public List<Recipe_I> filterSource(String source)
+	{
+		List<Recipe_I> recs = db.getAllRecipes();
+		List<Recipe_I> ret = new ArrayList<Recipe_I>();
+		for(Recipe_I rec : recs)
+		{
+			if(rec.getAuthor().equals(source))
+			{
+				ret.add(rec);
+			}
+		}
+		
+		return ret;
 	}
 	
 	

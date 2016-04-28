@@ -149,5 +149,11 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	{
 		return cookbook.sortRating(L);
 	}
+
+	@Override
+	public List<Recipe_I> filterSource(String source)
+	{
+		return cookbook.filterSource(source);
+	}
 	
 }
