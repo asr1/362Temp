@@ -509,6 +509,8 @@ public class Cookbook implements Cookbook_I
 		return ret;
 	}
 
+	//Wouldn't it be better to get that category from the database
+	//And then return all of the recipes that that category knows?
 	@Override
 	public List<Recipe_I> filterCategory(String category)
 	{
