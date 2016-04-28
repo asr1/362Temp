@@ -300,5 +300,11 @@ public class Recipe implements Recipe_I
 		
 		return result;
 	}
+
+	@Override
+	public Rating getRating()
+	{
+		return rating;
+	}
 	
 }

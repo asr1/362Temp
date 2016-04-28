@@ -3,6 +3,8 @@ package cs362Cookbook;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -475,4 +477,22 @@ public class Cookbook implements Cookbook_I
 		
 		return C;
 	}
+
+	@Override
+	public List<Recipe_I> sortRating(List<Recipe_I> L)
+	{
+		//Not using Bubble sort because I'm cooler
+		Collections.sort(L, new Comparator<Recipe_I>()
+		{
+			  @Override
+			  public int compare(Recipe_I x, Recipe_I y) {
+			    return x.getRating().compareTo(y.getRating());
+			  }
+		});
+		return L;
+	}
+	
+	
 }
+
+

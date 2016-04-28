@@ -143,5 +143,11 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
 		return cookbook.sortCategory(L);
 	}
+
+	@Override
+	public List<Recipe_I> sortRating(List<Recipe_I> L)
+	{
+		return cookbook.sortRating(L);
+	}
 	
 }

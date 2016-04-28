@@ -24,6 +24,7 @@ public interface Recipe_I {
 	public void favorite();
 	public void unfavorite();
 	public List<Category_I> getCategories(Database_Support_I db);
+	public Rating getRating();
 	
 	//Needed to confirm copy succeeds
 	@Override
