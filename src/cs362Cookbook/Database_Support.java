@@ -75,8 +75,6 @@ public class Database_Support implements Database_Support_I {
 	}
 	
 
-
-
 	@Override
 	public boolean putRecipe(Recipe_I R) {
 		try {
@@ -147,7 +145,7 @@ public class Database_Support implements Database_Support_I {
 				ingredients.add(r.getInt(1));
 			}
 			
-			result = new Recipe(name, author, ingredients, instruction, favorite);
+			result = new Recipe(name, author, ingredients, instruction, favorite, Rating.NONE);
 
 			
 		} catch (SQLException e) {

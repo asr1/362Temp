@@ -33,11 +33,12 @@ public class Recipe implements Recipe_I
 		this.instruction = new_instruction;
 	}
 	
-	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction, boolean newFav)
+	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction, boolean newFav, Rating r)
 	{
 		this.name = new_name;
 		this.author = new_author;
 		this.isFavorite = newFav;
+		this.rating = r;
 		
 		ingredients = new ArrayList<Integer>();
 		
