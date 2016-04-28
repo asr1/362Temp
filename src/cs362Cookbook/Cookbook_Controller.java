@@ -4,7 +4,7 @@ import java.util.List;
 
 import Interfaces.Cookbook_Controller_I;
 import Interfaces.Cookbook_I;
-import Interfaces.Ingredient_I;
+import Interfaces.Recipe_I;
 
 
 public class Cookbook_Controller implements Cookbook_Controller_I
@@ -19,7 +19,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
 	@Override
-	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
+	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)	
 	{
 		//TODO
 		return cookbook.addRecipe(name, author, ingredients, instruction);
@@ -69,8 +69,7 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	@Override
 	public boolean discardRecipe() 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return cookbook.discardRecipe();
 	}
 
 	/**
@@ -134,4 +133,15 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public String share(int ID) {
 		return cookbook.share(ID);
 	}
+
+	@Override
+	public List<Recipe_I> search() {
+		return cookbook.search();
+	}
+
+	@Override
+	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
+		return cookbook.sortCategory(L);
+	}
+	
 }

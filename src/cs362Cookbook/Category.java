@@ -5,7 +5,6 @@ import java.util.List;
 
 import Interfaces.Category_I;
 import Interfaces.Database_Support_I;
-import Interfaces.Ingredient_I;
 import Interfaces.Recipe_I;
 
 public class Category implements Category_I
@@ -66,5 +65,15 @@ public class Category implements Category_I
 	@Override
 	public boolean addRecipe(Recipe_I R) {
 		return Recipes.add(R.getID());
+	}
+
+	@Override
+	public boolean compare(Category_I C) {
+		if(C == null) {
+			return true;
+		}
+		else {
+			return name.compareTo(C.getName()) < 0;
+		}
 	}
 }

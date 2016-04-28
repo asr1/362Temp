@@ -21,11 +21,9 @@ public interface Recipe_I {
 	public String export(Database_Support_I db);
 	public List<Ingredient_I> getIngredients(Database_Support_I db);
 	public void show();
-	public String getName();
-	public String getInstruction();
-	public String getAuthor();
 	public void favorite();
 	public void unfavorite();
+	public List<Category_I> getCategories(Database_Support_I db);
 	
 	//Needed to confirm copy succeeds
 	@Override
@@ -33,5 +31,8 @@ public interface Recipe_I {
 	
 	// Database Support needed calls
 	public int getID();
+	public String getName();
+	public String getInstruction();
+	public String getAuthor();
 
 }

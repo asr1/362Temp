@@ -16,6 +16,7 @@ hs_err_pid*
 .settings/
 
 # Bin
+/bin
 *bin*
 /nib
 /nib

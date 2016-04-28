@@ -8,6 +8,7 @@ public interface Category_I {
 	public List<Recipe_I> getRecipes(Database_Support_I db);
 	public boolean removeRecipe(Recipe_I R);
 	public boolean addRecipe(Recipe_I R);
+	public boolean compare(Category_I C);
 	
 	// Database Support needed calls
 	public String getName();
