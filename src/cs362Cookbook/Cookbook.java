@@ -508,6 +508,29 @@ public class Cookbook implements Cookbook_I
 		
 		return ret;
 	}
+
+	@Override
+	public List<Recipe_I> filterCategory(String category)
+	{
+		List<Recipe_I> recs = db.getAllRecipes();
+		List<Recipe_I> ret = new ArrayList<Recipe_I>();
+		
+		for(Recipe_I rec : recs)
+		{
+			List<Category_I> cats = new ArrayList<Category_I>();
+			for(Category_I cat : cats)
+			{
+				if(cat.getName().equals(category))
+				{
+					ret.add(rec);
+					continue;
+				}
+			}
+			
+		}
+		
+		return ret;
+	}
 	
 	
 }

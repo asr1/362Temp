@@ -155,5 +155,11 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	{
 		return cookbook.filterSource(source);
 	}
+
+	@Override
+	public List<Recipe_I> filterCategory(String category)
+	{
+		return cookbook.filterCategory(category);
+	}
 	
 }
