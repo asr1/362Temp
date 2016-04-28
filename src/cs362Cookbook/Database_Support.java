@@ -32,6 +32,17 @@ import Interfaces.Recipe_I;
  * `idIgredient` INT NOT NULL,
  * PRIMARY KEY (`idRecipe`, `idIgredient`));
  * 
+ * CREATE TABLE `db362grp09`.`Category` (
+ * `id` INT NOT NULL AUTO_INCREMENT,
+ * `name` CHAR(30) NULL,
+ * PRIMARY KEY (`id`),
+ * UNIQUE INDEX `id_UNIQUE` (`id` ASC));
+ * 
+ * CREATE TABLE `db362grp09`.`RtoC` (
+ * `idRecipe` INT NOT NULL,
+ * `idCategory` INT NOT NULL,
+ * PRIMARY KEY (`idRecipe`, `idCategory`));
+ * 
  */
 
 public class Database_Support implements Database_Support_I {
@@ -74,9 +85,10 @@ public class Database_Support implements Database_Support_I {
 		}
 	}
 	
-
 	@Override
-	public boolean putRecipe(Recipe_I R) {
+	public int putRecipe(Recipe_I R) {
+		int id = -1;
+		
 		try {
 			
 			if(R.getID() == -1) {
@@ -92,7 +104,7 @@ public class Database_Support implements Database_Support_I {
 					"From db362grp09.Recipe" +
 					"Where name = " + R.getName());
 				
-				int id = r.getInt(1);
+				id = r.getInt(1);
 				
 				for(Integer I : R.getIngredients()) {
 					query.executeQuery("Insert into db362grp09.RtoI" +
@@ -113,10 +125,10 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
-			return false;
+			return -1;
 		}
 		
-		return true;
+		return id;
 	}
 
 	@Override
@@ -175,15 +187,8 @@ public class Database_Support implements Database_Support_I {
 		return true;
 	}
 	
-	public Category_I getCategory(String name)
-	{
-		//TODO
-		return null;
-	}
-
 	@Override
-	public boolean putIngredient(Ingredient_I I)
-	{
+	public boolean putIngredient(Ingredient_I I) {		
 		try {
 			
 			if(I.getID() == -1) {
@@ -308,15 +313,137 @@ public class Database_Support implements Database_Support_I {
 		return true;
 	}
 
+	@Override
+	public boolean putCategory(Category_I C) {
+		try {
+			
+			if(C.getID() == -1) {
+				// INSERT
+				query.executeQuery("Insert into db362grp09.Category" + 
+					"(name)" + 
+					"Values" +
+					"(" + C.getName() +")");
+				
+				ResultSet r;
+				
+				r = query.executeQuery("Select id" +
+					"From db362grp09.Category" +
+					"Where name = " + C.getName());
+				
+				int id = r.getInt(1);
+				
+				for(Recipe_I R : C.getRecipes(this)) {
+					query.executeQuery("Insert into db362grp09.RtoC" +
+						"(idRecipe, idCategory)" +
+						"Values" +
+						"(" + R.getID() + ", " + id + ")");
+				}
+			}
+		
+			else {
+				// UPDATE
+				for(Recipe_I R : C.getRecipes(this)) {
+					query.executeQuery("Insert into db362grp09.RtoC" +
+						"(idRecipe, idCategory)" +
+						"Values" +
+						"(" + R.getID() + ", " + C.getID() + ")");
+				}
+			}
+			
+		} catch (SQLException e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
+	public Category_I getCategory(String name) {
+
+		Category_I result;
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select id" +
+					"From db362grp09.Category" +
+					"Where name = " + name);
+			
+			int id = r.getInt(1);
+			
+			r = query.executeQuery("Select idRecipe" +
+					"From db362grp09.RtoC" +
+					"Where idCategory = " + id);
+			
+			List<Integer> Recipes = new ArrayList<Integer>();
+			
+			while(r.next()) {
+				Recipes.add(r.getInt(1));
+			}
+			
+			result = new Category(id, name, Recipes);
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
+	}
 
 
 
 	@Override
-	public boolean putCategory(Category_I C)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public Category_I getCategory(int id) {
+		
+		Category_I result;
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select name" +
+					"From db362grp09.Category" +
+					"Where id = " + id);
+			
+			String name = r.getString(1);
+			
+			r = query.executeQuery("Select idRecipe" +
+					"From db362grp09.RtoC" +
+					"Where idCategory = " + id);
+			
+			List<Integer> Recipes = new ArrayList<Integer>();
+			
+			while(r.next()) {
+				Recipes.add(r.getInt(1));
+			}
+			
+			result = new Category(id, name, Recipes);
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
 	}
 
 
+
+	@Override
+	public List<Recipe_I> getAllRecipes() {
+		
+		List<Recipe_I> result = new ArrayList<Recipe_I>();
+		
+		try {
+			
+			ResultSet r = query.executeQuery("Select id" +
+					"From db362grp09.Recipe");
+			
+			while(r.next()) {
+				result.add(this.getRecipe(r.getInt(1)));
+			}
+			
+		} catch (SQLException e) {
+			result = null;
+		}
+				
+		return result;
+		
+	}
 }

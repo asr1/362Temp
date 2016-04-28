@@ -16,8 +16,8 @@ public class CookbookTests
 	@Test
 	public void cookbookAddRecipeTest()
 	{
-		Cookbook_Controller cont = new Cookbook_Controller();
-		Recipe recipe = new Recipe("name", "author", null, "instruction");
+//		Cookbook_Controller cont = new Cookbook_Controller();
+//		Recipe recipe = new Recipe("name", "author", null, "instruction");
 		int id = 0; //= cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		assertTrue(id > 0);
 	}
@@ -26,7 +26,7 @@ public class CookbookTests
 	public void cookbookRemoveRecipeTest()
 	{
 		Cookbook_Controller cont = new Cookbook_Controller();
-		Recipe recipe = new Recipe("name", "author", null, "instruction");
+//		Recipe recipe = new Recipe("name", "author", null, "instruction");
 		int id = 0;// = cont.addRecipe(recipe.getName(), recipe.getAuthor(), recipe.getIngredients(), recipe.getInstruction());
 		boolean success = cont.removeRecipe(id);
 		assertEquals(success, true);

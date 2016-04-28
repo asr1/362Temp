@@ -4,7 +4,7 @@ import java.util.List;
 
 import Interfaces.Cookbook_Controller_I;
 import Interfaces.Cookbook_I;
-import Interfaces.Ingredient_I;
+import Interfaces.Recipe_I;
 
 
 public class Cookbook_Controller implements Cookbook_Controller_I
@@ -19,68 +19,38 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	//Returns the ID of the created recipe, or -1 if
 	//The add failed.
 	@Override
-	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
+	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)	
 	{
 		//TODO
-		return false;
+		return cookbook.addRecipe(name, author, ingredients, instruction);
 	}
 	
 	public boolean removeCategory(String name, int ID)
 	{
-		//TODO
-		return false;
+		return cookbook.removeCategory(name, ID);
+	}
+
+	public boolean rate(int ID, Rating rating)
+	{
+		return cookbook.rate(ID, rating);
 	}
 	
 	public boolean unrate(int ID)
 	{
-		//TODO
-		return false;
+		return cookbook.unrate(ID);
 	}
 	
 	//Returns true if the remove succeeded, or false otherwise.
 	public boolean removeIngredient(String ing)
 	{
-		//TODO
-		//Get ingredients from the database,
-		//Ingredient ingredient = getfromdatabase(int)
-		//Remove any that match ing for name.
-		//If there aren't any, return false
-		//Else if there are, continue to iterate
-		//Iterate through each recipe that the ingredient has
-		//List<Recipe> allRecipes = ingredient.getRecipes();
-		//Each ingredient knows which recipes it exists in.
-		
-		//We'll have to eactually perform a get for each,
-		//So it will look like this:
-		
-		//for(int i : allRecpies)
-		//{Recipe r = getRecipeFromDatabase(i);
-		//for(ingredient in : r)
-		//{if ing.name.equal(ing)
-		//{r.removeIngredient(i)}}}
-		//Then return true
-		
-		//Then delete any ingredients with a name of ing from each ingredient
-		//For(Recipe r : allRecipes)
-		//for(Ingredient i : r)
-
-		
-		return false;
+		return cookbook.removeIngredient(ing);
 	}
 	
 	//Takes the ID of the recipe to be removed.
 	//Returns true if the remove succeeded, or false otherwise.
-	public boolean removeRecipe(int id)
+	public boolean removeRecipe(int ID)
 	{
-		//TODO
-		//Get the recipe ID from the database.
-		//If(id is not in database)
-		//{return false}
-		//Else
-		//database.remove(ID)
-		//Return true
-		
-		return false;
+		return cookbook.removeRecipe(ID);
 	}
 
 	/**
@@ -91,14 +61,15 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	 * @return boolean
 	 */
 	@Override
-	public boolean addIngredient(String name) {
+	public boolean addIngredient(String name) 
+	{
 		return cookbook.addIngredient(name);
 	}
 
 	@Override
-	public boolean discardRecipe() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean discardRecipe() 
+	{
+		return cookbook.discardRecipe();
 	}
 
 	/**
@@ -109,25 +80,27 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	 * @return int
 	 */
 	@Override
-	public boolean duplicateRecipe(int ID) {
+	public boolean duplicateRecipe(int ID) 
+	{
 		return cookbook.duplicateRecipe(ID);
 	}
 
 	@Override
-	public boolean editRecipe(int ID) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editRecipe(int ID) 
+	{
+		return cookbook.editRecipe(ID);
 	}
 
 	@Override
-	public boolean replaceIngredient(String oName, String nName) {
+	public boolean replaceIngredient(String oName, String nName) 
+	{
 		return cookbook.replaceIngredient(oName, nName);
 	}
 
 	@Override
-	public boolean saveRecipe() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean saveRecipe() 
+	{
+		return cookbook.saveRecipe();
 	}
 
 	@Override
@@ -136,6 +109,39 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return cookbook.show(ID);
 	}
 
+	@Override
+	public boolean addCategory(String name) {
+		return cookbook.addCategory(name);
+	}
 
+	@Override
+	public boolean hideRecipe(int ID) {
+		return cookbook.hideRecipe(ID);
+	}
+	
+	@Override
+	public boolean favoriteRecipe(int ID){
+		return cookbook.favoriteRecipe(ID);
+	}
+	
+	@Override
+	public boolean unfavoriteRecipe(int ID){
+		return cookbook.unfavoriteRecipe(ID);
+	}
+
+	@Override
+	public String share(int ID) {
+		return cookbook.share(ID);
+	}
+
+	@Override
+	public List<Recipe_I> search() {
+		return cookbook.search();
+	}
+
+	@Override
+	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
+		return cookbook.sortCategory(L);
+	}
 	
 }

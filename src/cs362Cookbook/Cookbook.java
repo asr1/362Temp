@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 
+import Interfaces.Category_I;
 import Interfaces.Cookbook_I;
 import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
@@ -35,8 +36,20 @@ public class Cookbook implements Cookbook_I
 		}
 		 r.removeCategory(cat);
 		 cat.removeRecipe(r);
-		 return db.putRecipe(r) && db.putCategory(cat);
+		 return db.putRecipe(r) >0 && db.putCategory(cat);
 		 
+	}
+
+	@Override
+	public boolean rate(int ID, Rating rating)
+	{
+		Recipe r = (Recipe) db.getRecipe(ID);
+		if(r == null)
+		{
+			return false;
+		}
+		r.rate(rating);
+		return db.putRecipe(r) > 0;
 	}
 	
 	@Override
@@ -48,7 +61,7 @@ public class Cookbook implements Cookbook_I
 			return false;
 		}
 		r.unrate();
-		return db.putRecipe(r);
+		return db.putRecipe(r) > 0;
 	}
 	
 	/**
@@ -63,8 +76,7 @@ public class Cookbook implements Cookbook_I
 		
 		Ingredient_I I = new Ingredient(name);
 		
-		return db.putIngredient(I);
-		
+		return db.putIngredient(I);		
 	}
 
 	@Override
@@ -87,15 +99,14 @@ public class Cookbook implements Cookbook_I
 		
 		Recipe_I R1 = db.getRecipe(ID);
 		
-		if(R1 == null) {
-			
+		if(R1 == null) 
+		{
 			return false;
-			
 		}
 		
 		Recipe_I R2 = R1.copyRecipe();
 		
-		return db.putRecipe(R2);
+		return db.putRecipe(R2) > 0;
 		
 	}
 
@@ -110,6 +121,11 @@ public class Cookbook implements Cookbook_I
 			
 			//Get Recipe from database
 			Recipe recipe = (Recipe) db.getRecipe(ID);
+			
+			if(recipe == null)
+			{
+				return false;
+			}
 			
 			//print recipe data to new text file temp.txt
 			File file = new File("temp.txt");
@@ -182,6 +198,12 @@ public class Cookbook implements Cookbook_I
 	public boolean removeIngredient(String name)
 	{
 		Ingredient ing = (Ingredient) db.getIngredient(name);
+
+		if(ing == null)
+		{
+			return false;
+		}
+		
 		return db.deleteIngredient(ing);
 	}
 
@@ -189,6 +211,12 @@ public class Cookbook implements Cookbook_I
 	public boolean removeRecipe(int ID)
 	{
 		Recipe r = (Recipe) db.getRecipe(ID);
+
+		if(r == null)
+		{
+			return false;
+		}
+		
 		return db.deleteRecipe(r);
 	}
 
@@ -227,6 +255,12 @@ public class Cookbook implements Cookbook_I
 	public boolean saveRecipe()
 	{
 		Recipe recipe = (Recipe) db.getRecipe(editID);
+
+		if(recipe == null)
+		{
+			return false;
+		}
+		
 		String input = "";
 		File file = new File("temp.txt");
 		
@@ -277,14 +311,14 @@ public class Cookbook implements Cookbook_I
 			recipe.instruction+=input+" ";
 			input = edits.nextLine();
 		}
-		return db.putRecipe(recipe);
+		return db.putRecipe(recipe) > 0;
 	}
 
 	@Override
 	public boolean addRecipe(String name, String author, List<Integer> ingredients, String instruction)
 	{
 		Recipe recipe = new Recipe(name, author, ingredients, instruction);
-		return db.putRecipe(recipe);
+		return db.putRecipe(recipe) > 0;
 	}
 
 	@Override
@@ -298,5 +332,147 @@ public class Cookbook implements Cookbook_I
 		rec.show();
 		return true;
 
+	}
+
+	/**
+	 * Takes a name and adds that category to the cookbook. 
+	 * Returns a boolean whether it was successful or not.
+	 * 
+	 * @param name
+	 * @return boolean
+	 */
+	@Override
+	public boolean addCategory(String name) {
+		Category_I C = new Category(name);
+		return db.putCategory(C);
+	}
+
+	/**
+	 * Hides the given recipe (via ID) from the cookbook.
+	 * Returns a boolean whether it was successful or not. 
+	 * 
+	 * @param ID
+	 * @return boolean
+	 */
+	@Override
+	public boolean hideRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
+		R.hide();
+		return db.putRecipe(R) > 0;
+	}
+
+	/**
+	 * Exports the given recipe (via ID) to a file for sharing.
+	 * Returns a String with the shared file's name.
+	 * 
+	 * @param ID
+	 * @return String
+	 */
+	@Override
+	public String share(int ID) {
+		Recipe_I R = db.getRecipe(ID);		
+		return R.export(db);
+	}
+
+	@Override
+	public boolean favoriteRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
+		R.favorite();
+		return db.putRecipe(R) > 0;
+	}
+
+	@Override
+	public boolean unfavoriteRecipe(int ID) {
+		Recipe_I R = db.getRecipe(ID);
+
+		if(R == null)
+		{
+			return false;
+		}
+		
+		R.unfavorite();
+		return db.putRecipe(R) > 0;
+	}
+
+	/**
+	 * Does a search of all the recipes.
+	 * Returns all the recipes in the system.
+	 * 
+	 * @return List<Recipe_I>
+	 */
+	@Override
+	public List<Recipe_I> search() {
+		return db.getAllRecipes();
+	}
+	
+	/**
+	 * Sorts the given recipes by their categories.
+	 * Returns the sorted list of recipes.
+	 * 
+	 * @param List<Recipe_I>
+	 * @return List<Recipe_I>
+	 */
+	@Override
+	public List<Recipe_I> sortCategory(List<Recipe_I> L) {
+		
+		// bubble sort cause I'm cool
+		for(int i = 0; i < L.size(); i++) {
+			
+			Recipe_I R1 = L.get(i);
+			List<Category_I> categories1 = R1.getCategories(db);
+			Category_I C1 = important(categories1);
+			
+			// sort level
+			for(int j = i + 1; j < L.size(); j++) {
+				
+				Recipe_I R2 = L.get(j);
+				List<Category_I> categories2 = R2.getCategories(db);
+				Category_I C2 = important(categories2);
+				
+				if(!C1.compare(C2)) {
+					
+					// swap the two things
+					L.set(i, R2);
+					L.set(j, R1);
+					R1 = R2;
+					
+				}
+				
+			}
+		}
+		
+		return L;
+	}
+	
+	/**
+	 * Helper function for sortCategory
+	 * Returns the most important Category for comparison
+	 * 
+	 * @param List<Category_I>
+	 * @return Category_I
+	 */
+	private Category_I important(List<Category_I> L) {
+		Category_I C = null;
+		
+		// get the most important Category for comparing.
+		for(Category_I c : L) {
+			if(!C.compare(c)) {
+				C = c;
+			}
+		}
+		
+		return C;
 	}
 }

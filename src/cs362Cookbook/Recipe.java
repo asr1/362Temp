@@ -1,27 +1,32 @@
 package cs362Cookbook;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interfaces.Category_I;
 import Interfaces.Database_Support_I;
 import Interfaces.Ingredient_I;
 import Interfaces.Recipe_I;
+
 public class Recipe implements Recipe_I
 {
 	int id;
-	boolean isFavorite;
 	String author;
 	List<Integer> ingredients;
-	List<Category> categories = new ArrayList<Category>();
+	List<Integer> categories;
 	String name;
 	Rating rating = Rating.NONE;
 	String instruction;
 	private boolean isHidden;
+	private boolean isFavorite;
 	
 	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction)
 	{
 		this.name = new_name;
 		this.author = new_author;
+		this.isHidden = false;
 		this.isFavorite = false;
 		
 		ingredients = new ArrayList<Integer>();
@@ -29,6 +34,8 @@ public class Recipe implements Recipe_I
 		for(Integer I : new_ingredients) {
 			this.addIngredient(I);
 		}
+		
+		categories = new ArrayList<Integer>();
 		
 		this.instruction = new_instruction;
 	}
@@ -71,6 +78,12 @@ public class Recipe implements Recipe_I
 	public boolean removeCategory(Category category)
 	{
 		return categories.remove(category);
+	}
+
+	@Override
+	public void rate(Rating rating)
+	{
+		this.rating = rating;
 	}
 	
 	@Override
@@ -176,9 +189,9 @@ public class Recipe implements Recipe_I
 	}
 
 	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getID() 
+	{
+		return id;
 	}
 
 	//Returns a list of Ingredient IDs
@@ -192,6 +205,100 @@ public class Recipe implements Recipe_I
 	public void show()
 	{
 		isHidden = false;
+	}
+
+	/**
+	 * Sets the recipe to hidden.
+	 * 
+	 * @return boolean
+	 */
+	@Override
+	public boolean hide() {
+		return isHidden = true;
+	}
+	
+	@Override
+	public void favorite() {
+		isFavorite = true;
+	}
+
+	@Override
+	public void unfavorite() {
+		isFavorite = false;
+	}
+
+	/**
+	 * Exports the recipe to a file and returns that file name.
+	 * 
+	 * @return String
+	 */
+	@Override
+	public String export(Database_Support_I db) {
+		
+		// new File for this Recipe
+		File f = new File(name + id + ".recipe");
+		
+		// the writer to use
+		PrintWriter out;
+		
+		try {
+			
+			// make our new file
+			f.createNewFile();
+			
+			// set the writer
+			out = new PrintWriter(f);
+			
+			// print the recipe
+			out.println("Recipe\n");
+			out.println("Name         : " + this.name);
+			out.println("Author       : " + this.author);
+			
+			out.println();
+			
+			out.println("Ingredients  :");
+			
+			for(Integer i : ingredients) {
+				Ingredient_I I = db.getIngredient(i);
+				out.print(I.getName() + ", ");
+			}
+			
+			out.println("\n");
+			
+			out.println("Instructions :");
+			out.println(this.instruction);
+			
+		} catch (Exception e) {			
+			return e.toString();
+		}
+		
+		// close the writer
+		out.close();
+		
+		// return
+		return f.getName();
+		
+	}
+
+	/**
+	 * Returns a list of categories attached to this recipe
+	 * 
+	 * @param Database_Support_I
+	 * @return List<Category_I>
+	 */
+	@Override
+	public List<Category_I> getCategories(Database_Support_I db) {
+		List<Category_I> result = new ArrayList<Category_I>();
+		
+		Category_I C = null;
+		
+		for(Integer I : categories) {
+			C = db.getCategory(I);
+			
+			result.add(C);
+		}
+		
+		return result;
 	}
 	
 }
