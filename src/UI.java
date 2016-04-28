@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Interfaces.Recipe_I;
 import cs362Cookbook.Cookbook_Controller;
 import cs362Cookbook.Ingredient;
 import cs362Cookbook.Rating;
@@ -11,6 +12,7 @@ public class UI {
 	private static Cookbook_Controller cb;
 	private static boolean running = true;
 	private static Scanner scan;
+	private static List<Recipe_I> results = new ArrayList<Recipe_I>();
 	
 	public static void main(String[] args) 
 	{
@@ -26,6 +28,7 @@ public class UI {
 	
 	private static void processInput(String command) {
 		boolean success;
+		results = null;
 		//Iteration1
 		if(command.equals("addRecipe"))
 		{
@@ -250,32 +253,41 @@ public class UI {
 		//Iteration3
 		if(command.equals("search"))
 		{
-			cb.search();
+			results=cb.search();
 		}
 		if(command.equals("filterIngredients"))
 		{
+			System.out.print("Ingredient name: ");
+			results=cb.filterCategory(scan.nextLine());
 		}
 		if(command.equals("filterCategory"))
 		{
+			System.out.print("Category name: ");
+			results=cb.filterCategory(scan.nextLine());
 		}
 		if(command.equals("filterAuthor"))
 		{
+			System.out.print("Author name: ");
+			results=cb.filterSource(scan.nextLine());
 		}
 		if(command.equals("print"))
 		{
 		}
 		if(command.equals("sortAlphabetic"))
 		{
+			results = cb.sortAlphabetic(cb.search());
 		}
 		if(command.equals("sortAuthor"))
 		{
+			results = cb.sortAuthor(cb.search());
 		}
 		if(command.equals("sortRating"))
 		{
+			results = cb.sortRating(cb.search());
 		}
 		if(command.equals("sortCategory"))
 		{
-			cb.sortCategory(cb.search());
+			results = cb.sortCategory(cb.search());
 		}
 		
 		//UI commands
@@ -286,6 +298,13 @@ public class UI {
 		if(command.equals("quit"))
 		{
 			running = false;
+		}
+		
+		//print any search/sort/filter results
+		if(!(results==null)){
+			for(Recipe_I result : results){
+				cb.printRecipe(result);
+			}
 		}
 	}
 
