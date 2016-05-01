@@ -14,16 +14,16 @@ import Interfaces.Recipe_I;
  * 
  * CREATE TABLE `db362grp09`.`Recipe` (
  * `id` INT NOT NULL AUTO_INCREMENT,
- * `author` CHAR(30) NULL,
- * `name` CHAR(30) NULL,
- * `instruction` CHAR(250) NULL,
+ * `author` VARCHAR(30) NULL,
+ * `name` VARCHAR(30) NULL,
+ * `instruction` VARCHAR(250) NULL,
  * `favorite` TINYINT NULL DEFAULT 0,
  * PRIMARY KEY (`id`),
  * UNIQUE INDEX `id_UNIQUE` (`id` ASC));
  * 
  * CREATE TABLE `db362grp09`.`Ingredient` (
  * `id` INT NOT NULL AUTO_INCREMENT,
- * `name` CHAR(30) NULL,
+ * `name` VARCHAR(30) NULL,
  * PRIMARY KEY (`id`),
  * UNIQUE INDEX `id_UNIQUE` (`id` ASC));
  * 
@@ -34,7 +34,7 @@ import Interfaces.Recipe_I;
  * 
  * CREATE TABLE `db362grp09`.`Category` (
  * `id` INT NOT NULL AUTO_INCREMENT,
- * `name` CHAR(30) NULL,
+ * `name` VARCHAR(30) NULL,
  * PRIMARY KEY (`id`),
  * UNIQUE INDEX `id_UNIQUE` (`id` ASC));
  * 
