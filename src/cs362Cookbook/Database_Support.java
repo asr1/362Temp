@@ -93,34 +93,35 @@ public class Database_Support implements Database_Support_I {
 			
 			if(R.getID() == -1) {
 				// INSERT
-				query.executeQuery("Insert into db362grp09.Recipe" + 
+				query.executeUpdate("Insert into db362grp09.Recipe" + 
 					"(name)" + 
 					"Values" +
-					"(" + R.getName() +")");
+					"('" + R.getName() +"')");
 				
 				ResultSet r;
 				
-				r = query.executeQuery("Select id" +
-					"From db362grp09.Recipe" +
-					"Where name = " + R.getName());
+				r = query.executeQuery("Select id " +
+					"From db362grp09.Recipe " +
+					"Where name = '" + R.getName() + "'");
 				
+				r.next();				
 				id = r.getInt(1);
 				
 				for(Integer I : R.getIngredients()) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
-						"(" + R.getID() + ", " + I + ")");
+						"('" + R.getID() + "', '" + I + "')");
 				}
 			}
 		
 			else {
 				// UPDATE
 				for(Integer I : R.getIngredients()) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
-						"(" + R.getID() + ", " + I + ")");
+						"('" + R.getID() + "', '" + I + "')");
 				}
 			}
 			
@@ -137,17 +138,18 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select name" +
-					"From db362grp09.Recipe" +
+			ResultSet r = query.executeQuery("Select name " +
+					"From db362grp09.Recipe " +
 					"Where id = " + ID);
 			
+			r.next();
 			String author = r.getString(1);
 			String name = r.getString(2);
 			String instruction = r.getString(3);
 			boolean favorite  = Integer.parseInt(r.getString(4)) > 0;
 			
-			r = query.executeQuery("Select idIgredient" +
-					"From db362grp09.RtoI" +
+			r = query.executeQuery("Select idIgredient " +
+					"From db362grp09.RtoI " +
 					"Where idRecipe = " + ID);
 			
 			
@@ -173,10 +175,10 @@ public class Database_Support implements Database_Support_I {
 	public boolean deleteRecipe(Recipe_I R) {
 		try {
 			
-			query.executeQuery("Delete from db362grp09.RtoI" +
+			query.executeUpdate("Delete from db362grp09.RtoI " +
 					"Where idRecipe = " + R.getID());
 			
-			query.executeQuery("Delete from db362grp09.Recipe" +
+			query.executeUpdate("Delete from db362grp09.Recipe " +
 					"Where id = " + R.getID());
 			
 		
@@ -193,38 +195,40 @@ public class Database_Support implements Database_Support_I {
 			
 			if(I.getID() == -1) {
 				// INSERT
-				query.executeQuery("Insert into db362grp09.Ingredient" + 
+				query.executeUpdate("Insert into db362grp09.Ingredient" + 
 					"(name)" + 
 					"Values" +
-					"(" + I.getName() +")");
+					"('" + I.getName() +"')");
 				
 				ResultSet r;
 				
-				r = query.executeQuery("Select id" +
-					"From db362grp09.Ingredient" +
-					"Where name = " + I.getName());
+				r = query.executeQuery("Select id " +
+					"From db362grp09.Ingredient " +
+					"Where name = '" + I.getName() + "'");
 				
+				r.next();
 				int id = r.getInt(1);
 				
 				for(Recipe_I R : I.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
-						"(" + R.getID() + ", " + id + ")");
+						"('" + R.getID() + "', '" + id + "')");
 				}
 			}
 		
 			else {
 				// UPDATE
 				for(Recipe_I R : I.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
-						"(" + R.getID() + ", " + I.getID() + ")");
+						"('" + R.getID() + "', '" + I.getID() + "')");
 				}
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 		
@@ -238,14 +242,15 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select id" +
-					"From db362grp09.Ingredient" +
-					"Where name = " + name);
+			ResultSet r = query.executeQuery("Select id " +
+					"From db362grp09.Ingredient " +
+					"Where name = '" + name + "'");
 			
+			r.next();			
 			int id = r.getInt(1);
 			
-			r = query.executeQuery("Select idRecipe" +
-					"From db362grp09.RtoI" +
+			r = query.executeQuery("Select idRecipe " +
+					"From db362grp09.RtoI " +
 					"Where idIgredient = " + id);
 			
 			List<Integer> Recipes = new ArrayList<Integer>();
@@ -270,14 +275,15 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select name" +
-					"From db362grp09.Ingredient" +
+			ResultSet r = query.executeQuery("Select name " +
+					"From db362grp09.Ingredient " +
 					"Where id = " + id);
 			
+			r.next();
 			String name = r.getString(1);
 			
-			r = query.executeQuery("Select idRecipe" +
-					"From db362grp09.RtoI" +
+			r = query.executeQuery("Select idRecipe " +
+					"From db362grp09.RtoI " +
 					"Where idIgredient = " + id);
 			
 			List<Integer> Recipes = new ArrayList<Integer>();
@@ -299,10 +305,10 @@ public class Database_Support implements Database_Support_I {
 	public boolean deleteIngredient(Ingredient_I I) {
 		try {
 			
-			query.executeQuery("Delete from db362grp09.RtoI" +
+			query.executeUpdate("Delete from db362grp09.RtoI " +
 					"Where idIgredient = " + I.getID());
 			
-			query.executeQuery("Delete from db362grp09.Ingredient" +
+			query.executeUpdate("Delete from db362grp09.Ingredient " +
 					"Where id = " + I.getID());
 			
 		
@@ -319,34 +325,35 @@ public class Database_Support implements Database_Support_I {
 			
 			if(C.getID() == -1) {
 				// INSERT
-				query.executeQuery("Insert into db362grp09.Category" + 
+				query.executeUpdate("Insert into db362grp09.Category" + 
 					"(name)" + 
 					"Values" +
-					"(" + C.getName() +")");
+					"('" + C.getName() +"')");
 				
 				ResultSet r;
 				
-				r = query.executeQuery("Select id" +
-					"From db362grp09.Category" +
-					"Where name = " + C.getName());
+				r = query.executeQuery("Select id " +
+					"From db362grp09.Category " +
+					"Where name = '" + C.getName() + "'");
 				
+				r.next();
 				int id = r.getInt(1);
 				
 				for(Recipe_I R : C.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoC" +
+					query.executeUpdate("Insert into db362grp09.RtoC" +
 						"(idRecipe, idCategory)" +
 						"Values" +
-						"(" + R.getID() + ", " + id + ")");
+						"('" + R.getID() + "', '" + id + "')");
 				}
 			}
 		
 			else {
 				// UPDATE
 				for(Recipe_I R : C.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoC" +
+					query.executeUpdate("Insert into db362grp09.RtoC" +
 						"(idRecipe, idCategory)" +
 						"Values" +
-						"(" + R.getID() + ", " + C.getID() + ")");
+						"('" + R.getID() + "', '" + C.getID() + "')");
 				}
 			}
 			
@@ -364,14 +371,15 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select id" +
-					"From db362grp09.Category" +
-					"Where name = " + name);
+			ResultSet r = query.executeQuery("Select id " +
+					"From db362grp09.Category " +
+					"Where name = '" + name + "'");
 			
+			r.next();
 			int id = r.getInt(1);
 			
-			r = query.executeQuery("Select idRecipe" +
-					"From db362grp09.RtoC" +
+			r = query.executeQuery("Select idRecipe " +
+					"From db362grp09.RtoC " +
 					"Where idCategory = " + id);
 			
 			List<Integer> Recipes = new ArrayList<Integer>();
@@ -398,14 +406,15 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select name" +
-					"From db362grp09.Category" +
+			ResultSet r = query.executeQuery("Select name " +
+					"From db362grp09.Category " +
 					"Where id = " + id);
 			
+			r.next();
 			String name = r.getString(1);
 			
-			r = query.executeQuery("Select idRecipe" +
-					"From db362grp09.RtoC" +
+			r = query.executeQuery("Select idRecipe " +
+					"From db362grp09.RtoC " +
 					"Where idCategory = " + id);
 			
 			List<Integer> Recipes = new ArrayList<Integer>();
@@ -432,7 +441,7 @@ public class Database_Support implements Database_Support_I {
 		
 		try {
 			
-			ResultSet r = query.executeQuery("Select id" +
+			ResultSet r = query.executeQuery("Select id " +
 					"From db362grp09.Recipe");
 			
 			while(r.next()) {
