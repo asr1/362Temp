@@ -193,31 +193,31 @@ public class Database_Support implements Database_Support_I {
 			
 			if(I.getID() == -1) {
 				// INSERT
-				query.executeQuery("Insert into db362grp09.Ingredient" + 
+				query.executeUpdate("Insert into db362grp09.Ingredient" + 
 					"(name)" + 
 					"Values" +
-					"(" + I.getName() +")");
+					"('" + I.getName() +"')");
 				
 				ResultSet r;
 				
 				r = query.executeQuery("Select id" +
-					"From db362grp09.Ingredient" +
-					"Where name = " + I.getName());
+					"From Ingredient" +
+					"Where name= " + I.getName()+"");
 				
 				int id = r.getInt(1);
 				
 				for(Recipe_I R : I.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
-						"(" + R.getID() + ", " + id + ")");
+						"('" + R.getID() + "', '" + id + "')");
 				}
 			}
 		
 			else {
 				// UPDATE
 				for(Recipe_I R : I.getRecipes(this)) {
-					query.executeQuery("Insert into db362grp09.RtoI" +
+					query.executeUpdate("Insert into db362grp09.RtoI" +
 						"(idRecipe, idIgredient)" +
 						"Values" +
 						"(" + R.getID() + ", " + I.getID() + ")");
@@ -225,6 +225,7 @@ public class Database_Support implements Database_Support_I {
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 		
