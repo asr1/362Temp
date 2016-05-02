@@ -24,10 +24,15 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		//TODO
 		return cookbook.addRecipe(name, author, ingredients, instruction);
 	}
-	
+
 	public boolean removeCategory(String name, int ID)
 	{
 		return cookbook.removeCategory(name, ID);
+	}
+	
+	public int getIngredient(String name)
+	{
+		return cookbook.getIngredient(name);
 	}
 
 	public boolean rate(int ID, Rating rating)

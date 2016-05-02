@@ -150,7 +150,7 @@ public class Cookbook implements Cookbook_I
 			//Print Instructions
 			writer.println("#Instruction");
 			writer.println(recipe.instruction);
-			
+
 			//Print ingredients
 			writer.println("#Ingredients");
 			List<Ingredient_I> ingredients = recipe.getIngredients(db);
@@ -158,7 +158,7 @@ public class Cookbook implements Cookbook_I
 			{
 				writer.println(((Ingredient)ingredients.get(i)).getName());
 			}
-			
+			writer.close();
 			//prompt changes
 			System.out.println("temp.txt created, please edit the file to make changes");
 			System.out.println("Save chabges to recipe? <Y/N>");
@@ -166,8 +166,12 @@ public class Cookbook implements Cookbook_I
 			//process input
 			Scanner scan = new Scanner(System.in);
 			String input = "";
-			while (!scan.next().equals("Y")&&!scan.next().equals("N"))
+			while (scan.hasNext())
 			{
+				input = scan.nextLine();
+				if(input.equals("Y")||input.equals("N")){
+					break;
+				}
 			}
 			scan.close();
 			
@@ -179,7 +183,7 @@ public class Cookbook implements Cookbook_I
 			
 			//
 			else{
-				
+				discardRecipe();
 			}
 		}
 		else
@@ -254,6 +258,10 @@ public class Cookbook implements Cookbook_I
 		
 	}
 
+	public int getIngredient(String name){
+		return db.getIngredient(name).getID();
+	}
+	
 	@Override
 	public boolean saveRecipe()
 	{
@@ -567,16 +575,18 @@ public class Cookbook implements Cookbook_I
 
 	@Override
 	public void printRecipe(Recipe_I result) {
-		System.out.println(result.getName()+", by: "+result.getAuthor());
-		System.out.print("Ingredients:");
+		System.out.println("Recipe:"+result.getName());
+		System.out.println("by: "+result.getAuthor());
+		System.out.println("Ingredients:");
 		for(Ingredient_I ingredient : result.getIngredients(db)){
-			System.out.println("          "+ingredient.getName());
+			System.out.println(ingredient.getName());
 		}
 		System.out.println("Categories:");
 		for(Category_I category: result.getCategories(db)){
-			System.out.println("          "+category.getName());
+			System.out.println(category.getName());
 		}
 		System.out.println("Instructions: "+result.getInstruction());
+		System.out.println();
 	}
 }
 

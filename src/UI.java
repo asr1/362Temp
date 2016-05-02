@@ -45,8 +45,7 @@ public class UI {
 				System.out.print("Add ingredient(type \"quit\" to finish):");
 				str = scan.nextLine();
 				if(!str.equals("quit")&&!str.isEmpty()){
-					Ingredient ingredient = new Ingredient(str);
-					ingredients.add(ingredient.getID());
+					ingredients.add(cb.getIngredient(str));
 				}
 			}
 				
@@ -65,7 +64,10 @@ public class UI {
 		if(command.equals("editRecipe"))
 		{
 			System.out.print("Recipe ID: ");
-			success = cb.editRecipe(Integer.parseInt(scan.nextLine()));
+			int i = Integer.parseInt(scan.nextLine());
+			scan.close();
+			success = cb.editRecipe(i);
+			scan = new Scanner(System.in);
 			if(success){
 				System.out.println("Recipe editted successfully!");
 			}
@@ -249,7 +251,7 @@ public class UI {
 		if(command.equals("share"))
 		{
 			System.out.print("Recipe ID: ");
-			cb.share(Integer.parseInt(scan.nextLine()));
+			System.out.println(cb.share(Integer.parseInt(scan.nextLine())));
 		}
 		//Iteration3
 		if(command.equals("search"))
@@ -259,7 +261,7 @@ public class UI {
 		if(command.equals("filterIngredients"))
 		{
 			System.out.print("Ingredient name: ");
-			results=cb.filterCategory(scan.nextLine());
+			results=cb.filterIngredient(scan.nextLine());
 		}
 		if(command.equals("filterCategory"))
 		{
@@ -273,6 +275,8 @@ public class UI {
 		}
 		if(command.equals("print"))
 		{
+			System.out.print("Recipe ID: ");
+			System.out.println(cb.share(Integer.parseInt(scan.nextLine())));
 		}
 		if(command.equals("sortAlphabetic"))
 		{

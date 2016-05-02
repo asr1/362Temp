@@ -35,5 +35,6 @@ public interface Cookbook_I {
 	public List<Recipe_I> filterIngredient(String ingredient);
 	
 	public void printRecipe(Recipe_I result);
+	public int getIngredient(String name);
 
 }

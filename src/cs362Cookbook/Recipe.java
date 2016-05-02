@@ -24,6 +24,7 @@ public class Recipe implements Recipe_I
 	
 	public Recipe(String new_name, String new_author, List<Integer> new_ingredients, String new_instruction)
 	{
+		this.id=-1;
 		this.name = new_name;
 		this.author = new_author;
 		this.isHidden = false;
@@ -54,6 +55,12 @@ public class Recipe implements Recipe_I
 		}
 		
 		this.instruction = new_instruction;
+	}
+	
+	public Recipe(int id, String new_name, String new_author, List<Integer> new_ingredients, String new_instruction, boolean newFav, Rating r)
+	{
+		this(new_name, new_author, new_ingredients, new_instruction);
+		this.id = id;
 	}
 	
 	@Override
@@ -162,8 +169,13 @@ public class Recipe implements Recipe_I
 	@Override
 	public List<Ingredient_I> getIngredients(Database_Support_I db)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<Ingredient_I> result = new ArrayList<Ingredient_I>();
+		
+		for(Integer I : ingredients) {
+			result.add(db.getIngredient(I));
+		}
+		
+		return result;
 	}
 	
 	@Override
