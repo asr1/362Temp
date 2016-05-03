@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -16,6 +15,7 @@ hs_err_pid*
 .settings/
 
 # Bin
+<<<<<<< HEAD
 /bin
 <<<<<<< HEAD
 /bin
@@ -197,3 +197,6 @@ hs_err_pid*
 /bin
 /bin
 /bin
+=======
+/bin
+>>>>>>> 45e0971c5234c211b7421441f67699ef07cd9c61

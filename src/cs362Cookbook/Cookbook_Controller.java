@@ -24,10 +24,15 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		//TODO
 		return cookbook.addRecipe(name, author, ingredients, instruction);
 	}
-	
+
 	public boolean removeCategory(String name, int ID)
 	{
 		return cookbook.removeCategory(name, ID);
+	}
+	
+	public int getIngredient(String name)
+	{
+		return cookbook.getIngredient(name);
 	}
 
 	public boolean rate(int ID, Rating rating)
@@ -150,6 +155,16 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 		return cookbook.sortRating(L);
 	}
 
+	public List<Recipe_I> sortAlphabetic(List<Recipe_I> L) 
+	{
+		return cookbook.sortAlphabetic(L);
+	}
+
+	public List<Recipe_I> sortAuthor(List<Recipe_I> L) 
+	{
+		return cookbook.sortAuthor(L);
+	}
+
 	@Override
 	public List<Recipe_I> filterSource(String source)
 	{
@@ -160,6 +175,16 @@ public class Cookbook_Controller implements Cookbook_Controller_I
 	public List<Recipe_I> filterCategory(String category)
 	{
 		return cookbook.filterCategory(category);
+	}
+
+	@Override
+	public List<Recipe_I> filterIngredient(String ingredient)
+	{
+		return cookbook.filterIngredient(ingredient);
+	}
+
+	public void printRecipe(Recipe_I result) {
+		cookbook.printRecipe(result);
 	}
 	
 }

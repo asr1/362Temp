@@ -28,7 +28,13 @@ public interface Cookbook_I {
 	public List<Recipe_I> search();
 	public List<Recipe_I> sortCategory(List<Recipe_I> L);
 	public List<Recipe_I> sortRating(List<Recipe_I> L);
+	public List<Recipe_I> sortAlphabetic(List<Recipe_I> L);
+	public List<Recipe_I> sortAuthor(List<Recipe_I> L);
 	public List<Recipe_I> filterSource(String source);
 	public List<Recipe_I> filterCategory(String category);
+	public List<Recipe_I> filterIngredient(String ingredient);
+	
+	public void printRecipe(Recipe_I result);
+	public int getIngredient(String name);
 
 }

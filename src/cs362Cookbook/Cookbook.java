@@ -150,7 +150,7 @@ public class Cookbook implements Cookbook_I
 			//Print Instructions
 			writer.println("#Instruction");
 			writer.println(recipe.instruction);
-			
+
 			//Print ingredients
 			writer.println("#Ingredients");
 			List<Ingredient_I> ingredients = recipe.getIngredients(db);
@@ -158,7 +158,7 @@ public class Cookbook implements Cookbook_I
 			{
 				writer.println(((Ingredient)ingredients.get(i)).getName());
 			}
-			
+			writer.close();
 			//prompt changes
 			System.out.println("temp.txt created, please edit the file to make changes");
 			System.out.println("Save chabges to recipe? <Y/N>");
@@ -166,8 +166,12 @@ public class Cookbook implements Cookbook_I
 			//process input
 			Scanner scan = new Scanner(System.in);
 			String input = "";
-			while (!scan.next().equals("Y")&&!scan.next().equals("N"))
+			while (scan.hasNext())
 			{
+				input = scan.nextLine();
+				if(input.equals("Y")||input.equals("N")){
+					break;
+				}
 			}
 			scan.close();
 			
@@ -179,7 +183,7 @@ public class Cookbook implements Cookbook_I
 			
 			//
 			else{
-				
+				discardRecipe();
 			}
 		}
 		else
@@ -254,6 +258,10 @@ public class Cookbook implements Cookbook_I
 		
 	}
 
+	public int getIngredient(String name){
+		return db.getIngredient(name).getID();
+	}
+	
 	@Override
 	public boolean saveRecipe()
 	{
@@ -494,6 +502,30 @@ public class Cookbook implements Cookbook_I
 	}
 
 	@Override
+	public List<Recipe_I> sortAlphabetic(List<Recipe_I> L) {
+		Collections.sort(L, new Comparator<Recipe_I>()
+		{
+			  @Override
+			  public int compare(Recipe_I x, Recipe_I y) {
+			    return x.getName().compareTo(y.getName());
+			  }
+		});
+		return L;
+	}
+
+	@Override
+	public List<Recipe_I> sortAuthor(List<Recipe_I> L) {
+		Collections.sort(L, new Comparator<Recipe_I>()
+		{
+			  @Override
+			  public int compare(Recipe_I x, Recipe_I y) {
+			    return x.getAuthor().compareTo(y.getAuthor());
+			  }
+		});
+		return L;
+	}
+
+	@Override
 	public List<Recipe_I> filterSource(String source)
 	{
 		List<Recipe_I> recs = db.getAllRecipes();
@@ -509,8 +541,16 @@ public class Cookbook implements Cookbook_I
 		return ret;
 	}
 
+	@Override
+	public List<Recipe_I> filterIngredient(String ingredient)
+	{
+		Ingredient_I ing = db.getIngredient(ingredient);		
+		return ing.getRecipes(db);
+	}
+
 	//Wouldn't it be better to get that category from the database
 	//And then return all of the recipes that that category knows?
+	//that's what I thought with ingredient^^
 	@Override
 	public List<Recipe_I> filterCategory(String category)
 	{
@@ -528,13 +568,26 @@ public class Cookbook implements Cookbook_I
 					continue;
 				}
 			}
-			
 		}
 		
 		return ret;
 	}
-	
-	
+
+	@Override
+	public void printRecipe(Recipe_I result) {
+		System.out.println("Recipe:"+result.getName());
+		System.out.println("by: "+result.getAuthor());
+		System.out.println("Ingredients:");
+		for(Ingredient_I ingredient : result.getIngredients(db)){
+			System.out.println(ingredient.getName());
+		}
+		System.out.println("Categories:");
+		for(Category_I category: result.getCategories(db)){
+			System.out.println(category.getName());
+		}
+		System.out.println("Instructions: "+result.getInstruction());
+		System.out.println();
+	}
 }
 
 
